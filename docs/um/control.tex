@@ -1,0 +1,84 @@
+\subsection{Controller}
+
+The Versat controller has a 8-bit minimal architecture to support
+simple calculations and managing some peripherals. Its accumulator
+architecture is shown in Fig.~\ref{fig:control}.
+
+\begin{figure}[!htbp]
+    \centerline{\includegraphics[width=\textwidth]{control}}
+    \vspace{0cm}\caption{The Controller.}
+    \label{fig:control}
+\end{figure}
+
+The controller executes machine code instructions. The instruction set
+is explained in section~\ref{sec:isa}. The instructions must be stored in
+a Program Memory block. The fetched instruction is decoded; the
+operation code (opdocde) and immediate value are identified and the
+opcode is decoded to select the ALU operation, read or write modes.
+
+The controller sees the other blocks in the system as memory mapped,
+and uses the RW bus to access its memory space.
+
+The controller architecture contains 4 main registers: the accumulator
+(register A), the data pointer (register B), the carry save (register
+C) and the program counter (register PC).
+
+\subsubsection{Accumulator}
+
+Register A, the accumulator, is the main register in this
+architecture. It can be loaded with a value read from the instruction
+itself (immediate value) or a value read from the RW bus. It can
+perfom operations using as arguments its own contents and an immediate
+or addressed value. For that it is preceeded by an ALU block to
+compute its next value. Finally, its contents can be written to the RW
+bus.
+
+\subsubsection{Data Pointer}
+
+Register B, the data pointer, is used to implement indirect loads and
+stores to/from the accumulator, respectively. Its contents is the
+load/store address for the RW bus. Register B is in the memory map so
+it can be read or written using the RW bus. This register has two
+times the data width, so it is addressable to the word level (most or
+less significant bits).
+
+\subsubsection{Carry Save}
+
+Register C, the carry save, is used to store the carry save bit. It is
+a read only register.
+
+\subsubsection{Program Counter}
+
+The PC contains the address of the next instruction to fetch from the
+Program Memory. The PC normally increments to fetch the next
+instruction or, to implement program jumps, it is loaded with an
+instruction immediate or with the register B value.
+
+\subsubsection{RW bus}
+\label{sec:rwbus}
+
+
+The RW bus signals shown in Fig.~\ref{fig:control} are described in
+Table~\ref{tab:rwbus}.
+
+\begin{table}[!htbp]
+  \centering
+    \begin{tabular}{|p{1.8cm}|c|p{10cm}|}
+    \hline 
+    {\bf Name} & {\bf Direction} & {\bf Description} \\
+    \hline \hline 
+     req & OUT & Read or write request.\\
+    \hline
+     rnw & OUT & Characterizes the request as read if it is 1 or a write if it is 0. \\
+    \hline
+     address & OUT & Address to be read or written \\
+    \hline
+     data2read & IN & Data to be read from the RW bus \\
+    \hline
+     data2write & OUT & Data to be written to the RW bus \\
+    \hline
+
+    \end{tabular}
+  \caption{RW bus signals as driven by the controller.}
+  \label{tab:rwbus}
+\end{table}

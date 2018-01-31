@@ -1,0 +1,34 @@
+\section{Memory Map}
+\label{sec:mem_map}
+
+In this section the memory map of the system, where the controller is
+integrated, is presented as seen by its RW bus interface.
+
+The RW bus interface, allows the programmers to access different parts
+of the system by using the addresses given in this section.
+
+The base addresses given in Table~\ref{tab:memmap} are reserved. Other
+addresses may be added to the memory map as they are needed to access
+new peripherals.
+
+\begin{table}[!htbp]
+  \centering
+    \begin{tabular}{|p{3cm}|c|c|p{5cm}|}
+    \hline 
+    {\bf Mnemonic} & {\bf Address} & {\bf Read/Write permissions} & {\bf Description} \\
+    \hline \hline 
+     RB0 & 0 & RW & Register B less significant bits \\
+    \hline
+     RB1 & 1 & RW & Register B most significant bits \\
+    \hline
+     RC  & 2 & R & Register C (carry save) \\
+    \hline
+     USER\_MEM\_BASE & 3 & RW &  User memory base\\
+    \hline
+ 
+    \end{tabular}
+  \caption{Memory map base addresses}
+  \label{tab:memmap}
+\end{table}
+
+
