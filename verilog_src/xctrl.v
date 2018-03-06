@@ -1,23 +1,6 @@
-/* ****************************************************************************
- This Source Code Form is subject to the terms of the
- Open Hardware Description License, v. 1.0. If a copy
- of the OHDL was not distributed with this file, You
- can obtain one at http://juliusbaxter.net/ohdl/ohdl.txt
-
- Description: 
-
- Copyright (C) 2014 Authors
-
- Author(s): Jose T. de Sousa <jose.t.de.sousa@gmail.com>
-            Andre Lopes <andre.a.lopes@netcabo.pt>
-            Guilherme Luz <gui_luz_93@hotmail.com>
-            Joao Dias lopes <joao.d.lopes91@gmail.com>
-            Francisco Nunes <ftcnunes@gmail.com>
-
- ***************************************************************************** */
-
 `timescale 1ns / 1ps
 
+`include "xctrl.vh"
 `include "xdefs.v"
 `include "xmem_map.v"
 
@@ -29,9 +12,10 @@ module xctrl (
 	      input 			   clk,
 	      input 			   rst,
 	      
-	      // Program memory interface 
-	      input [`INSTR_W-1:0] 	   instruction,
+	      // Program memory interface
 	      output reg [`IADDR_W:0] 	   pc,
+	      input 			   instr_valid,
+	      input [`INSTR_W-1:0] 	   instruction,
 	      
 	      // Read/write interface 
 	      output reg 		   rw_req,
@@ -61,19 +45,36 @@ module xctrl (
    
    reg [`IADDR_W:0] 			   pc_nxt;
    
+`ifdef DELAY_INSTR
+   reg [`INSTR_W-1:0] 			   instruction_int;
+`else
+   wire [`INSTR_W-1:0] 			   instruction_int;
+`endif
+   reg [`INSTR_W-1:0] 			   instruction_reg;
+   wire [`INSTR_W-1:0] 			   instruction_int2;
+   
+   reg 					   instr_valid_reg;
+   
+   wire 				   posedge_instr_valid;
+   
    // Instruction fields
    wire [`OPCODESZ-1 :0] 		   opcode;
    wire [`INT_ADDR_W-1:0] 		   addrint;
    wire signed [`DATA_W-1:0] 		   imm;
    
+   assign posedge_instr_valid = instr_valid & ~instr_valid_reg;
+   
+   // If the controller was stalled, the first instruction to execute is the last one addressed by the program counter
+   assign instruction_int2 = (posedge_instr_valid == 1'b0)? instruction : instruction_reg;
+   
    // Instruction field assignment
-   assign opcode  = instruction[`INSTR_W-1 -: `OPCODESZ];
+   assign opcode  = instruction_int[`INSTR_W-1 -: `OPCODESZ];
 `ifdef INTADDRWGTDATAW
-   assign addrint = {{(`INT_ADDR_W-`INSTR_W+`OPCODESZ){1'b0}},instruction[`INSTR_W-`OPCODESZ-1:0]};
+   assign addrint = {{(`INT_ADDR_W-`INSTR_W+`OPCODESZ){1'b0}},instruction_int[`INSTR_W-`OPCODESZ-1:0]};
 `else
-   assign addrint = instruction[`INT_ADDR_W-1:0];
+   assign addrint = instruction_int[`INT_ADDR_W-1:0];
 `endif
-   assign imm     = {{(`DATA_W-`IMM_W){instruction[`IMM_W-1]}},instruction[`IMM_W-1:0]};
+   assign imm     = {{(`DATA_W-`IMM_W){instruction_int[`IMM_W-1]}},instruction_int[`IMM_W-1:0]};
    
    assign data_to_wr = regA;
    
@@ -82,6 +83,35 @@ module xctrl (
    assign regB_int = regB[`INT_ADDR_W-1:0];
    
    assign regC = {{(`DATA_W-1){1'b0}},cs};
+   
+`ifndef DELAY_INSTR
+   assign instruction_int = instruction_int2;
+`else
+   // Instruction registers
+   // Pipeline register
+   always @ (posedge clk, posedge rst) begin
+      if (rst) begin
+	 instruction_int <= `INSTR_W'd0;
+      end else if (instr_valid) begin
+	 instruction_int <= instruction_int2;
+      end
+   end
+`endif
+   // Stall register
+   always @ (posedge clk, posedge rst) begin
+      if (rst) begin
+	 instruction_reg <= `INSTR_W'd0;
+      end else if (instr_valid_reg) begin
+	 instruction_reg <= instruction;
+      end
+   end
+   
+   always @ (posedge clk, posedge rst)
+     if (rst) begin
+	instr_valid_reg <= 1'b1;
+     end else begin
+	instr_valid_reg <= instr_valid;
+     end
    
    // address decoder
    always @ * begin
@@ -106,17 +136,19 @@ module xctrl (
    end
    
    // Registers
-   always @ (posedge clk, posedge rst)
-     if (rst) begin 
-	regA <= `DATA_W'd0;
-	cs   <= 1'b0;
-	pc   <= `ROM_BASE;
-     end else begin
-	regA <= regA_nxt;
-	cs   <= cs_nxt;
-	pc   <= pc_nxt;
-     end
+   always @ (posedge clk, posedge rst) begin
+      if (rst) begin
+	 regA <= `DATA_W'd0;
+	 cs   <= 1'b0;
+	 pc   <= `ROM_BASE;
+      end else if (instr_valid) begin
+	 regA <= regA_nxt;
+	 cs   <= cs_nxt;
+	 pc   <= pc_nxt;
+      end
+   end
    
+   // Data Pointer
    always @ (posedge clk)
      if(regB_we)
        regB <= regB_nxt;
@@ -211,39 +243,41 @@ module xctrl (
       rw_rnw  = 1'b1;
       rw_addr = addrint;
       
-      case (opcode)
-	`RDW: begin
-	   rw_req_int  = 1'b1;
-	end
-	`RDWB: begin
-	   rw_req_int  = 1'b1;
-	   rw_rnw  = 1'b1;
-	   rw_addr = regB_int + imm;
-	end
-	`WRW: begin
-	   rw_req_int  = 1'b1;
-	   rw_rnw  = 1'b0;
-	end
-	`WRWB: begin
-	   rw_req_int  = 1'b1;
-	   rw_rnw  = 1'b0;
-	   rw_addr = regB_int + imm;
-	end
-	`ADD: begin
-	   rw_req_int  = 1'b1;
-	end
-	`SUB: begin
-	   rw_req_int  = 1'b1;
-	end
-	`AND: begin
-	   rw_req_int  = 1'b1;
-	end
-	`XOR: begin
-	   rw_req_int  = 1'b1;
-	end
-	default:
-	  rw_req_int   = 1'b0;
-      endcase
+      if (instr_valid) begin
+	 case (opcode)
+	   `RDW: begin
+	      rw_req_int  = 1'b1;
+	   end
+	   `RDWB: begin
+	      rw_req_int  = 1'b1;
+	      rw_rnw  = 1'b1;
+	      rw_addr = regB_int + imm;
+	   end
+	   `WRW: begin
+	      rw_req_int  = 1'b1;
+	      rw_rnw  = 1'b0;
+	   end
+	   `WRWB: begin
+	      rw_req_int  = 1'b1;
+	      rw_rnw  = 1'b0;
+	      rw_addr = regB_int + imm;
+	   end
+	   `ADD: begin
+	      rw_req_int  = 1'b1;
+	   end
+	   `SUB: begin
+	      rw_req_int  = 1'b1;
+	   end
+	   `AND: begin
+	      rw_req_int  = 1'b1;
+	   end
+	   `XOR: begin
+	      rw_req_int  = 1'b1;
+	   end
+	   default:
+	     rw_req_int   = 1'b0;
+	 endcase
+      end
    end
    
 endmodule
