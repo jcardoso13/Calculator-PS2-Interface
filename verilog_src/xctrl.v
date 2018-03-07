@@ -34,7 +34,9 @@ module xctrl (
    
    reg 					   regB0_req;
    reg 					   regB1_req;
+   
    wire 				   regB_we;
+   
    reg [2*`DATA_W-1:0] 			   regB;
    wire [2*`DATA_W-1:0] 		   regB_nxt;
    wire [`INT_ADDR_W-1:0] 		   regB_int;

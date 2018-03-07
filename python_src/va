@@ -9,7 +9,8 @@ from math import ceil
 
 import os.path
 
-src_path = "../verilog_src/"
+src_path = "../../versat/verilog_src/"
+src_path_asic = "../../../versat/asic_umc130nm/sim/"
 
 list_mem = ["opcode.hex","boot_rom.hex"]
 
@@ -71,8 +72,8 @@ def assemble (flds, pReg) :
         temp = parts[0].split('>>',1)
         if len(temp) == 2 :
             parts[0] = str(getVal(temp[0]) >> int(temp[1]))
-        if flds[0]=="ldi" and getVal(parts[0]) > 2**lookup.get("IMM_W")-1 : return opval*16**(lookup.get("INSTR_W")/4-1) + (getVal(parts[0])&0x00F)
-        if flds[0]=="ldih" and getVal(parts[0]) > 2**lookup.get("IMM_W")-1 : return opval*16**(lookup.get("INSTR_W")/4-1) + ((getVal(parts[0])&0x0F0)>>4)
+        if flds[0]=="ldi" and getVal(parts[0]) > 2**lookup.get("IMM_W")-1 : return opval*16**(lookup.get("INSTR_W")/4-1) + (getVal(parts[0])&(2**lookup.get("IMM_W")-1))
+        if flds[0]=="ldih" and getVal(parts[0]) > 2**lookup.get("IMM_W")-1 : return opval*16**(lookup.get("INSTR_W")/4-1) + ((getVal(parts[0])&((2**lookup.get("IMM_W")-1)<<lookup.get("IMM_W")))>>lookup.get("IMM_W"))
         if getVal(parts[0]) > 2**lookup.get("IMM_W")-1 : raise MyError(2)
         return opval*16**(lookup.get("INSTR_W")/4-1) + getVal(parts[0])
     if len(parts) == 2 :

@@ -2,9 +2,9 @@
 \label{sec:mem_map}
 
 In this section the memory map of the system, where the controller is
-integrated, is presented as seen by its RW bus interface.
+integrated, is presented as seen by its Control Bus interface.
 
-The RW bus interface, allows the programmers to access different parts
+The Control Bus interface, allows the programmers to access different parts
 of the system by using the addresses given in this section.
 
 The base addresses given in Table~\ref{tab:memmap} are reserved. Other
@@ -21,7 +21,7 @@ new peripherals.
     \hline
      RB1 & 1 & RW & Register B most significant bits \\
     \hline
-     RC  & 2 & R & Register C (carry save) \\
+     RC  & 2 & R & Register C (carry bit) \\
     \hline
      USER\_MEM\_BASE & 3 & RW &  User memory base\\
     \hline

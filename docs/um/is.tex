@@ -13,7 +13,7 @@ The interface signals of the Versat controller core are described in Table~\ref{
 \multicolumn{3}{|c|}{{\bf Instruction Interface}}                                                                                           \\ \hline \hline
 instruction{[}7:0{]}                                     & IN              & Instruction to execute.                                        \\ \hline
 pc{[}9:0{]}                                              & OUT             & Program Counter.                                               \\ \hline \hline
-\multicolumn{3}{|c|}{{\bf RW Bus Interface}}                                                                                                \\ \hline \hline
+\multicolumn{3}{|c|}{{\bf Control Bus Interface}}                                                                                           \\ \hline \hline
 rw\_req                                                  & OUT             & Data request for read or write.                                \\ \hline
 rw\_rnw                                                  & OUT             & Data read (1) or write (0) signal.                             \\ \hline
 rw\_addr{[}9:0{]}                                        & OUT             & Data address.                                                  \\ \hline
@@ -36,23 +36,23 @@ Instruction Interface is shown in Figure~\ref{fig:instrird}.
     \label{fig:instrird}
 \end{figure}
 
-\subsubsection{RW Bus Interface Timing Diagram}
+\subsubsection{Control Bus Interface Timing Diagram}
 \label{sec:rwi}
 
-The timing diagrams for reads and writes using the RW Bus Interface
+The timing diagrams for reads and writes using the Control Bus Interface
 are shown in Figure~\ref{fig:rwird} and Figure~\ref{fig:rwiwr},
 respectively. These operations may be consecutive or not, as
 illustrated.
 
 \begin{figure}[htbp]
     \centerline{\includegraphics[width=.8\textwidth]{rw_rd}}
-    \vspace{0cm}\caption{RW bus interface reads.}
+    \vspace{0cm}\caption{Control Bus interface reads.}
     \label{fig:rwird}
 \end{figure}
 
 \begin{figure}[htbp]
     \centerline{\includegraphics[width=.8\textwidth]{rw_wr}}
-    \vspace{0cm}\caption{RW bus interface writes.}
+    \vspace{0cm}\caption{Control Bus interface writes.}
     \label{fig:rwiwr}
 \end{figure}
 
