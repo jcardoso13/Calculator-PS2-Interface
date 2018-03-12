@@ -8,19 +8,13 @@ TMP_FILES = \
 $(wildcard xctrl.out)
 
 VCDS = $(wildcard *.vcd)
-INCLUDES = xdefs.v xmem_map.v xctrl.vh
+SRC = xctrl.v xctrl_tb.v
 
-ifneq ($(MAKECMDGOALS), clean)
-FOO = $(MAKECMDGOALS)
-TMP = $(MAKECMDGOALS).v $(MAKECMDGOALS)_tb.v
-endif
+all: xctrl
 
-ifeq ($(MAKECMDGOALS), xctrl)
-SRC = $(TMP)
-$(FOO): $(SRC) FORCE
+xctrl: $(SRC) FORCE
 	$(CC) $(CFLAGS) $(rundefs) -o $@ $(SRC)
 	./$@
-endif
 
 clean:
 	$(foreach fn,$(BINS),if [ -e $(fn) ]; then rm -f $(fn); fi;)
@@ -34,4 +28,4 @@ clean:
 
 FORCE: 
 
-.phony: clean FORCE
+.phony: all clean FORCE
