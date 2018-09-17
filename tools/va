@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-#    v a
+#    Versat Assembler (va)
 #
 
 import sys, string
@@ -12,9 +12,9 @@ import os.path
 src_path = "../../versat/verilog_src/"
 src_path_asic = "../../../versat/asic_umc130nm/sim/"
 
-list_mem = ["opcode.hex","boot_rom.hex"]
+outfilename_list = ["program.hex","bootrom.hex"]
 
-class MyError(Exception):
+class vaError(Exception):
     def __init__(self, value):
         self.value = value
     def __str__(self):
@@ -36,23 +36,27 @@ def getVal (s) :
             b = int(s, 16) #hex number
         else :
             b = int(s)  #decimal a number
-    	a = b
-    	if b < 0 : a = 2**lookup.get("IMM_W") + b
+        a = b
+        if b < 0 :
+            a = 2**lookup.get("IMM_W") + b
     return a
 
 def pass1 (program,pReg) :
-    "determine addresses for labels and add to the lookup dictionary"
+    "determine addresses for labels and add them to the lookup dictionary"
     global lookup
     for lin in program :
         flds = string.split(lin)
         if not flds : continue        # just an empty line
-        if lin[0] == '#' : continue        # a comment line
-        if lin[0] > ' ' :
-            symb = flds[0]            # A symbol. Save its address in lookup
+        if lin[0] == '#' : continue   # a comment line
+        if lin[0] > ' ' :             # a symbol. Save its address in lookup
+            symb = flds[0]            
             lookup[symb] = pReg
-            if len(flds) > 1 :        # Advance program counter unless only a symbol
+            if len(flds) > 1 :        # advance program counter unless only a symbol
                 pReg = pReg + 1
-        else : pReg = pReg + 1
+                print pReg, flds[0]
+        elif flds and flds[0] != '#' :
+            pReg = pReg + 1
+            print pReg, flds
 
 def assemble (flds, pReg) :
     "assemble instruction to machine code"
@@ -61,11 +65,11 @@ def assemble (flds, pReg) :
     parts = flds[1:]
     if len(parts) == 1 and flds[0]==".memset" : return  getVal(parts[0])
     opval = codes.get(flds[0])
-    if opval == None : raise MyError(1)
+    if opval == None : raise vaError(1)
     if len(flds) == 1 or flds[0]=="nop" : return opval*16**(lookup.get("INSTR_W")/4-1)
     if len(parts) == 1 and (flds[0]=="beqi" or flds[0]=="bneqi") :
         imm = getVal(parts[0]) - pReg - lookup.get("DELAY_SLOTS")
-        if (imm > 2**(lookup.get("IMM_W")-1)-1) or (imm < -2**(lookup.get("IMM_W")-1)) : raise MyError(2)
+        if (imm > 2**(lookup.get("IMM_W")-1)-1) or (imm < -2**(lookup.get("IMM_W")-1)) : raise vaError(2)
         if imm < 0 : imm = 2**lookup.get("IMM_W") + imm
         return opval*16**(lookup.get("INSTR_W")/4-1) + imm
     if len(parts) == 1 :
@@ -74,59 +78,59 @@ def assemble (flds, pReg) :
             parts[0] = str(getVal(temp[0]) >> int(temp[1]))
         if flds[0]=="ldi" and getVal(parts[0]) > 2**lookup.get("IMM_W")-1 : return opval*16**(lookup.get("INSTR_W")/4-1) + (getVal(parts[0])&(2**lookup.get("IMM_W")-1))
         if flds[0]=="ldih" and getVal(parts[0]) > 2**lookup.get("IMM_W")-1 : return opval*16**(lookup.get("INSTR_W")/4-1) + ((getVal(parts[0])&((2**lookup.get("IMM_W")-1)<<lookup.get("IMM_W")))>>lookup.get("IMM_W"))
-        if getVal(parts[0]) > 2**lookup.get("IMM_W")-1 : raise MyError(2)
+        if getVal(parts[0]) > 2**lookup.get("IMM_W")-1 : raise vaError(2)
         return opval*16**(lookup.get("INSTR_W")/4-1) + getVal(parts[0])
     if len(parts) == 2 :
-        if (getVal(parts[0]) + getVal(parts[1])) > 2**lookup.get("IMM_W")-1 : raise MyError(2)
+        if (getVal(parts[0]) + getVal(parts[1])) > 2**lookup.get("IMM_W")-1 : raise vaError(2)
         return opval*16**(lookup.get("INSTR_W")/4-1) + getVal(parts[0]) + getVal(parts[1])
     if len(parts) == 3 :
-        if (getVal(parts[0]) + getVal(parts[1]) + getVal(parts[2])) > 2**lookup.get("IMM_W")-1 : raise MyError(2)
+        if (getVal(parts[0]) + getVal(parts[1]) + getVal(parts[2])) > 2**lookup.get("IMM_W")-1 : raise vaError(2)
         return opval*16**(lookup.get("INSTR_W")/4-1) + getVal(parts[0]) + getVal(parts[1]) + getVal(parts[2])
-    if len(parts) > 3 : raise MyError(2)
+    if len(parts) > 3 : raise vaError(2)
     
 
-def pass2 (program, pReg, mem_type) :
+def pass2 (program, pReg, outfilename) :
     global lookup
     global error
     "translate assembly code and symbols to machine code"
-    fw = open(mem_type, 'w')
-    if mem_type == list_mem[1] : fvw = open('rom.v', 'w')
-    instrFormatTer = "%0" + str(int(ceil((lookup.get("IADDR_W")+1)/4.0))) + "x %0" + str(int(ceil(lookup.get("INSTR_W")/4.0))) + "x\t%s"
+    fw = open(outfilename, 'w')
+    if outfilename == outfilename_list[1] : fvw = open('rom.v', 'w')
+    instrFormatTer = "%0" + str(int(ceil((lookup.get("PROG_ADDR_W")+1)/4.0))) + "x %0" + str(int(ceil(lookup.get("INSTR_W")/4.0))) + "x\t%s"
     instrFormatFile = "0" + str(int(ceil(lookup.get("INSTR_W")/4.0))) + "x"
-    if mem_type == list_mem[1] : instrFormatVerilogFile = "`ROM_ADDR_W'h%0" + str(int(ceil(lookup.get("ROM_ADDR_W")/4.0))) + "x: data <= `INSTR_W'h%0" + str(int(ceil(lookup.get("INSTR_W")/4.0))) + "x;\n"
+    if outfilename == outfilename_list[1] : instrFormatVerilogFile = "`PROG_ROM_ADDR_W'h%0" + str(int(ceil(lookup.get("PROG_ROM_ADDR_W")/4.0))) + "x: data <= `INSTR_W'h%0" + str(int(ceil(lookup.get("INSTR_W")/4.0))) + "x;\n"
     j = 0
     for lin in program :
         lin2 = lin.split('#', 1)[0] #ignore comment at the end of line 
         lin2 = lin2.replace(',', ' ') #remove commas
         flds = string.split(lin2)
         if lin[0] == '#' : continue        # a comment line
-        if lin[0] > ' ' : flds = flds[1:]     # drop symbol if there is one
-        if not flds : continue                   # don't print nothing, it's a blank line
+        if lin[0] > ' ' : flds = flds[1:]  # drop symbol if there is one
+        if not flds : continue             # don't print anything, it's a blank line
         else :
             try :
                 instruction = assemble(flds, pReg)
                 fw.write(format(instruction, instrFormatFile)+"\n")
-                if mem_type == list_mem[1] : fvw.write(instrFormatVerilogFile % (pReg, instruction))
+                if outfilename == outfilename_list[1] : fvw.write(instrFormatVerilogFile % (pReg, instruction))
                 print instrFormatTer % (pReg, instruction, lin),
                 pReg = pReg + 1
                 j = j + 1
-            except MyError as e:
+            except vaError as e:
                 print "*** ******** %s" % lin,
                 error = 1
     instruction = codes.get("nop")*16**(lookup.get("INSTR_W")/4-1)
-    if  mem_type == list_mem[1]:
+    if  outfilename == outfilename_list[1]:
         instrFormatVerilogFile = "default: data <= `INSTR_W'h%0" + str(int(ceil(lookup.get("INSTR_W")/4.0))) + "x;"
         fvw.write(instrFormatVerilogFile % (instruction))
         fvw.close()
-        if j > 2**lookup.get("ROM_ADDR_W") :
+        if j > 2**lookup.get("PROG_ROM_ADDR_W") :
             print "Program memory exceeded"
-        while j < 2**lookup.get("ROM_ADDR_W") : # complete boot ROM file with nops
+        while j < 2**lookup.get("PROG_ROM_ADDR_W") : # complete boot ROM file with nops
             fw.write(format(instruction,instrFormatFile)+"\n")
             j = j + 1
     else:
-        if j > 2**lookup.get("IADDR_W") :
+        if j > 2**lookup.get("PROG_ADDR_W") :
             print "Program memory exceeded"
-        while j < 2**lookup.get("IADDR_W") : # complete instruction file with nops
+        while j < 2**lookup.get("PROG_ADDR_W") : # complete instruction file with nops
             fw.write(format(instruction,instrFormatFile)+"\n")
             j = j + 1
     fw.close()
@@ -146,17 +150,17 @@ def main () :
     lookup["RB1"] = 1
     lookup["RC"] = 2
     
-    pReg = lookup.get("PROG_MEM_BASE")
+    pReg = lookup.get("PROG_MEM")
     
-    mem_type = list_mem[0]
+    outfilename = "program.hex"
     i = 1
     while i < len(sys.argv):
         arg = sys.argv[i]
         if arg == "-b":
             # print "Assembling a boot loader at address 0"
-            pReg = lookup.get("ROM_BASE")
+            pReg = 0
             i = i + 1
-            mem_type = list_mem[1]
+            outfilename = "bootrom.hex"
         else:
             print "Usage: ./assembler [-b] < in.va > out.hex"
             print "     -b: assemble a boot loader from address 0"
@@ -164,12 +168,12 @@ def main () :
             sys.exit(1)
     
     if len(sys.argv) == 1 and pReg == None:
-        print "PROG_MEM_BASE is not defined"
+        print "PROG_MEM is not defined"
         sys.exit(2)
     
     program = sys.stdin.readlines()
     pass1 (program, pReg)
-    pass2 (program, pReg, mem_type)
+    pass2 (program, pReg, outfilename)
     if (error == 1):
         print "Program has errors"
 
