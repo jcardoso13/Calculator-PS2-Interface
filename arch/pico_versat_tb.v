@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
-`include "xdefs.v"
+`include "pico_versat.vh"
 
-module xctrl_tb;
+module pico_versat_tb;
    
    //parameters 
    parameter clk_period = 10;
@@ -24,7 +24,7 @@ module xctrl_tb;
    integer 		  error;
    
    // Instantiate the Unit Under Test (UUT)
-   xctrl uut (
+   picoVersat uut (
 	      .clk(clk),
               .rst(rst),
 	      
@@ -213,9 +213,9 @@ module xctrl_tb;
       end
       
       if (error == 0) begin
-	 $display("Test pass");
+	 $display("Test passed");
       end else begin
-	 $display("Test fail!");
+	 $display("Test failed!");
       end
       
       // Simulation time 1000 ns

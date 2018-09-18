@@ -1,14 +1,12 @@
 `timescale 1ns / 1ps
 
-`include "xctrl.vh"
-`include "xdefs.v"
-`include "xmem_map.v"
+`include "pico_versat.vh"
 
 `define RB0 `INT_ADDR_W'd0
 `define RB1 `INT_ADDR_W'd1
 `define RC `INT_ADDR_W'd2
 
-module xctrl (
+module picoVersat (
 	      input 			   clk,
 	      input 			   rst,
 	      
