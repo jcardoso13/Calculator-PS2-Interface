@@ -8,7 +8,7 @@
 %\RequirePackage{fancyvrb}
 %\RequirePackage[includehead,includefoot,top=50pt,bottom=50pt,headheight=24pt,margin=1in]{geometry}
 \RequirePackage[includehead,includefoot,top=50pt,bottom=50pt,headheight=24pt]{geometry}
-\RequirePackage{hyperref}
+\RequirePackage[hidelinks]{hyperref}
 \RequirePackage{multirow}
 \RequirePackage{verbatim}
 \RequirePackage{geometry}
@@ -32,13 +32,13 @@
 \\
 \textsc{\small{\@category}}
 }
-\fancyhead[RE,LO]{\includegraphics[scale=.15]{EPSLogo.eps}}
+\fancyhead[RE,LO]{\includegraphics[scale=.25]{Logo.png}}
 
 \renewcommand{\footruleskip}{10pt}
 \renewcommand{\footrulewidth}{.4pt}
 
 \fancyfoot{}
-\fancyfoot[LO,RE]{\copyright 2017 IPBLOQ LDA All rights reserved\hspace{1cm}\url{www.ipbloq.com}\hspace{1cm}{\bf Confidential}}
+\fancyfoot[LO,RE]{\copyright 2017 IObundle Lda All rights reserved\hspace{1cm}\url{www.iobundle.com}\hspace{1cm}{\bf Confidential}}
 \fancyfoot[LE,RO]{\thepage}
 
 \newcommand{\category}[1]{\def\@category{#1}}
@@ -54,7 +54,7 @@
 \huge{\@category}
 
 \vspace*{2ex}
-\includegraphics[keepaspectratio,scale=.7]{EPSLogo.eps}
+\includegraphics[keepaspectratio,scale=.7]{Logo.png}
 
 \small{\today}
 \vspace*{\fill}
