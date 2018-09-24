@@ -89,9 +89,10 @@ module xtop_tb;
       $writememh("data_out.hex", data, 0, 2**`REGF_ADDR_W - 1);
 
       //
-      // End simulation
+      // End/pause simulation
       //
       #clk_period $finish;
+      // #clk_period $stop;
 
    end // initial begin
 

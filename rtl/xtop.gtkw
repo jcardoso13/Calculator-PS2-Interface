@@ -1,0 +1,187 @@
+[*]
+[*] GTKWave Analyzer v3.3.61 (w)1999-2014 BSI
+[*] Mon Sep 24 10:47:02 2018
+[*]
+[dumpfile] "/home/jsousa/sandbox/picoversat/rtl/xtop.vcd"
+[dumpfile_mtime] "Mon Sep 24 10:42:04 2018"
+[dumpfile_size] 22507
+[savefile] "/home/jsousa/sandbox/picoversat/rtl/xtop.gtkw"
+[timestart] 0
+[size] 1920 1016
+[pos] -1 -1
+*-15.567549 114300 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] xtop_tb.
+[treeopen] xtop_tb.uut.
+[sst_width] 229
+[signals_width] 369
+[sst_expanded] 1
+[sst_vpaned_height] 284
+@200
+-TESTBENCH
+@28
+xtop_tb.clk
+xtop_tb.rst
+@22
+xtop_tb.k[31:0]
+xtop_tb.par_addr[3:0]
+xtop_tb.par_in[31:0]
+xtop_tb.par_out[31:0]
+@28
+xtop_tb.par_we
+@22
+xtop_tb.r0[31:0]
+@200
+-UUT
+@28
+xtop_tb.uut.prog_sel
+@22
+xtop_tb.uut.prog_data_to_rd[31:0]
+@28
+xtop_tb.uut.regf_sel
+@22
+xtop_tb.uut.regf_data_to_rd[31:0]
+@28
+xtop_tb.uut.cprt_sel
+@22
+xtop_tb.uut.data_addr[9:0]
+@28
+xtop_tb.uut.data_sel
+@22
+xtop_tb.uut.data_to_rd[31:0]
+xtop_tb.uut.data_to_wr[31:0]
+@28
+xtop_tb.uut.data_we
+@22
+xtop_tb.uut.instruction[19:0]
+xtop_tb.uut.pc[8:0]
+@200
+-CONTROLLER
+@22
+xtop_tb.uut.controller.data_addr[9:0]
+@28
+xtop_tb.uut.controller.data_sel
+@22
+xtop_tb.uut.controller.data_to_rd[31:0]
+xtop_tb.uut.controller.data_to_rd_int[31:0]
+xtop_tb.uut.controller.data_to_wr[31:0]
+@28
+xtop_tb.uut.controller.data_we
+@22
+xtop_tb.uut.controller.addrint[9:0]
+xtop_tb.uut.controller.imm[31:0]
+xtop_tb.uut.controller.instruction[19:0]
+xtop_tb.uut.controller.opcode[3:0]
+xtop_tb.uut.controller.pc[8:0]
+xtop_tb.uut.controller.pc_nxt[8:0]
+xtop_tb.uut.controller.regA[31:0]
+xtop_tb.uut.controller.regA_nxt[31:0]
+xtop_tb.uut.controller.temp_regA[32:0]
+@28
+xtop_tb.uut.controller.regB0_sel
+xtop_tb.uut.controller.regB1_sel
+@22
+xtop_tb.uut.controller.regB[63:0]
+xtop_tb.uut.controller.regB_addr[9:0]
+xtop_tb.uut.controller.regB_nxt[63:0]
+@28
+xtop_tb.uut.controller.regB_we
+@22
+xtop_tb.uut.controller.regC[31:0]
+@28
+xtop_tb.uut.controller.cs
+xtop_tb.uut.controller.cs_nxt
+@200
+-TESTBENCH
+@28
+xtop_tb.clk
+xtop_tb.rst
+@22
+xtop_tb.k[31:0]
+xtop_tb.par_addr[3:0]
+xtop_tb.par_in[31:0]
+xtop_tb.par_out[31:0]
+@28
+xtop_tb.par_we
+@22
+xtop_tb.r0[31:0]
+@200
+-UUT
+@28
+xtop_tb.uut.prog_sel
+@22
+xtop_tb.uut.prog_data_to_rd[31:0]
+@28
+xtop_tb.uut.regf_sel
+@22
+xtop_tb.uut.regf_data_to_rd[31:0]
+@28
+xtop_tb.uut.cprt_sel
+@22
+xtop_tb.uut.data_addr[9:0]
+@28
+xtop_tb.uut.data_sel
+@22
+xtop_tb.uut.data_to_rd[31:0]
+xtop_tb.uut.data_to_wr[31:0]
+@28
+xtop_tb.uut.data_we
+@22
+xtop_tb.uut.instruction[19:0]
+xtop_tb.uut.pc[8:0]
+@200
+-CONTROLLER
+@22
+xtop_tb.uut.controller.data_addr[9:0]
+@28
+xtop_tb.uut.controller.data_sel
+@22
+xtop_tb.uut.controller.data_to_rd[31:0]
+xtop_tb.uut.controller.data_to_rd_int[31:0]
+xtop_tb.uut.controller.data_to_wr[31:0]
+@28
+xtop_tb.uut.controller.data_we
+@22
+xtop_tb.uut.controller.addrint[9:0]
+xtop_tb.uut.controller.imm[31:0]
+xtop_tb.uut.controller.instruction[19:0]
+xtop_tb.uut.controller.opcode[3:0]
+xtop_tb.uut.controller.pc[8:0]
+xtop_tb.uut.controller.pc_nxt[8:0]
+xtop_tb.uut.controller.regA[31:0]
+xtop_tb.uut.controller.regA_nxt[31:0]
+xtop_tb.uut.controller.temp_regA[32:0]
+@28
+xtop_tb.uut.controller.regB0_sel
+xtop_tb.uut.controller.regB1_sel
+@22
+xtop_tb.uut.controller.regB[63:0]
+xtop_tb.uut.controller.regB_addr[9:0]
+xtop_tb.uut.controller.regB_nxt[63:0]
+@28
+xtop_tb.uut.controller.regB_we
+@22
+xtop_tb.uut.controller.regC[31:0]
+@28
+xtop_tb.uut.controller.cs
+xtop_tb.uut.controller.cs_nxt
+@200
+-PROG MEMORY SYSTEM
+@29
+xtop_tb.uut.prog.rst
+@28
+xtop_tb.uut.prog.clk
+@22
+xtop_tb.uut.prog.data_addr[8:0]
+xtop_tb.uut.prog.data_from_ram[19:0]
+xtop_tb.uut.prog.data_from_rom[19:0]
+xtop_tb.uut.prog.data_in[31:0]
+xtop_tb.uut.prog.data_out[31:0]
+@28
+xtop_tb.uut.prog.data_sel
+xtop_tb.uut.prog.data_we
+@22
+xtop_tb.uut.prog.instruction[19:0]
+xtop_tb.uut.prog.pc[8:0]
+xtop_tb.uut.prog.pc_reg[8:0]
+[pattern_trace] 1
+[pattern_trace] 0

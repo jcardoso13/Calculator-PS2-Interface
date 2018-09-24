@@ -1,24 +1,50 @@
-# go to bootrom
-
-	rdw PROG_BASE,str_l
-	rdw PROG_BASE,str_l
-	wrw CPRT_BASE
+# 
+# Hello World!
+#
+#	a simple picoVersat program
+#
 	
+# set R1 iterator 	
+	ldi 15
+	wrw R1
+	
+# set RB to point to first char
+	ldi PROG_BASE
+	addi c0
+	wrw RB
+
+loop 	rdwb
+	rdwb            #need to read twice due to memory 1 cycle delay
+	wrw CPRT_BASE
+	rdw RB          #load pointer
+	addi 1	        #increment by 1
+	wrw RB          #store incremented pointer
+	rdw R1          #load iterator
+	bneqi loop      #go back to loop if non-zero, regA is decremented
+	wrw R1          #stores back decremented iterator
+
+#finish program by jumping back to boot ROM
 	ldi 0
 	beqi PROG_ROM
 	nop
 
-str_l	.memset 0x6E
-	.memset 0x69
+# char ascii constants placed here	
+c0	.memset 0x0A
+	.memset 0x48
+	.memset 0x65
+	.memset 0x6C
+	.memset 0x6C
+	.memset 0x6F
+	.memset 0x20
+	.memset 0x77
+	.memset 0x6F
 	.memset 0x72
-	.memset 0x72
-	.memset 0x75
-	.memset 0x0B
-	.memset 0x7F
-	.memset 0x75
-	.memset 0x7A
-	.memset 0x72
-	.memset 0x68
+	.memset 0x6C
+	.memset 0x64
+	.memset 0x21
+	.memset 0x0A
+	.memset 0x0D
+	.memset 0x0A
 
 
 

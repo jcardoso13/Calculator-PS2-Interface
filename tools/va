@@ -142,22 +142,17 @@ def main () :
         with open(src_path + 'xdict.txt','r') as inf:
             lookup = eval(inf.read())
     
-    lookup["RB"] = 0
-    lookup["RB0"] = 0
-    lookup["RB1"] = 1
-    lookup["RC"] = 2
-    
+    # assume it is a main program for RAM
     pReg = lookup.get("PROG_RAM")
-    
     outfilename = "program.hex"
     i = 1
     while i < len(sys.argv):
         arg = sys.argv[i]
         if arg == "-b":
-            # print "Assembling a boot loader at address 0"
+            # it is a boot rom program
             pReg = lookup.get("PROG_ROM")
-            i = i + 1
             outfilename = "bootrom.hex"
+            i = i + 1
         else:
             print "Usage: ./assembler [-b] < in.va > out.hex"
             print "     -b: assemble a boot loader from address 0"

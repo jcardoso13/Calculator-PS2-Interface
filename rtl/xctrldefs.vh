@@ -34,6 +34,5 @@
 `define BNEQ	4'hF
 
 // Internal register addresses
-`define RB0 `ADDR_W'd0
-`define RB1 `ADDR_W'd1
-`define RC `ADDR_W'd2
+`define RB `ADDR_W'd0
+`define RC `ADDR_W'd1

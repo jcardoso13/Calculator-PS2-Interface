@@ -142,6 +142,7 @@ module xtop (
 	       );
 
    xcprint cprint (
+		   .clk(clk),
 		   .sel(cprt_sel),
 		   .data_in(data_to_wr[7:0])
 		   );

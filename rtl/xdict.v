@@ -64,6 +64,11 @@ module xdict;
       // MEMORY MAP
       //
       //
+
+      // Controller
+      $fwrite(fp, "\"RB\":%d,\n", `RB);
+      $fwrite(fp, "\"RC\":%d,\n", `RC);
+      
       
       // Registers 
       $fwrite(fp, "\"R0\":%d,\n", `R0);
