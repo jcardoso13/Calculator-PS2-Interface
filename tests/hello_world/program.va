@@ -1,0 +1,33 @@
+# go to bootrom
+
+	rdw PROG_BASE,str_l
+	rdw PROG_BASE,str_l
+	wrw CPRT_BASE
+	
+	ldi 0
+	beqi PROG_ROM
+	nop
+
+str_l	.memset 0x6E
+	.memset 0x69
+	.memset 0x72
+	.memset 0x72
+	.memset 0x75
+	.memset 0x0B
+	.memset 0x7F
+	.memset 0x75
+	.memset 0x7A
+	.memset 0x72
+	.memset 0x68
+
+
+
+
+
+
+
+
+
+
+
+

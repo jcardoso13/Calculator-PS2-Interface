@@ -1,0 +1,16 @@
+#	
+# Basic Boot R0OM
+#
+
+#reset R0
+
+start	ldi 0
+	wrw R0
+
+#wait for R0 to become non-zero
+wait0	rdw R0
+	beqi wait0
+	nop
+	bneqi PROG_RAM
+	nop
+	
