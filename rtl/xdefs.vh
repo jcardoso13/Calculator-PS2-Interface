@@ -19,3 +19,4 @@
 `define REGF_BASE `ADDR_W'h010 //16-31
 `define CPRT_BASE `ADDR_W'h020 //32
 `define PROG_BASE `ADDR_W'h200 //512-1024
+`define GPO_BASE  `ADDR_W'h021 //33

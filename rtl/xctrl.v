@@ -7,7 +7,6 @@
 module xctrl (
 	      input 			    clk,
 	      input 			    rst,
-	      
 	      // Program memory interface
 	      output reg [`PROG_ADDR_W-1:0] pc,
 	      input [`INSTR_W-1:0] 	    instruction,

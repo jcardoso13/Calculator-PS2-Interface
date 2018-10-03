@@ -45,6 +45,10 @@ module xtop (
    reg [`DATA_W-1:0] 		  regf_data_to_rd;
    
    reg 				  cprt_sel;
+ 
+	reg 					gpo_sel;
+	reg [`DATA_W-1:0] 	gpo_data_out;	
+   
    
    
    //
@@ -71,6 +75,14 @@ module xtop (
 		     .data_to_rd(data_to_rd), 
 		     .data_to_wr(data_to_wr)
 		     );
+		     
+	xgpo gpo(
+			.clk(clk),
+			.rst(rst),
+			.data_in(data_to_wr),
+			.data_out(gpo_data_out),
+			.sel(gpo_sel)
+			);
 
    // PROGRAM MEMORY MODULE
    xprog prog (
@@ -95,15 +107,15 @@ module xtop (
 
 	       // instruction interface
 	       .pc(pc),
-       	       .instruction(instruction)      
+       	   .instruction(instruction)      
 	       );
-
 
    // ADDRESS DECODER
    always @ * begin
       prog_sel = 1'b0;
       regf_sel = 1'b0;
       cprt_sel = 1'b0;
+      gpo_sel  =1'b0;
 
       if (`REGF_BASE == (data_addr & ({`ADDR_W{1'b1}}<<`REGF_ADDR_W))) begin
 	 regf_sel = 1'b1;
@@ -113,6 +125,8 @@ module xtop (
       end else if (`PROG_BASE == (data_addr & ({`ADDR_W{1'b1}}<<`PROG_ADDR_W))) begin
          prog_sel = 1'b1;
          data_to_rd = prog_data_to_rd;
+      end else if (`GPO_BASE == data_addr) begin
+		gpo_sel	=	1'b1;
       end else if(data_sel === 1'b1)
 	 $display("Warning: unmapped controller issued data address %x at time %f", data_addr, $time);
    end // always @ *
