@@ -13,6 +13,7 @@ module xtop (
 	     input 		      par_we,
 	     input [`DATA_W-1:0]      par_in,
 	     output [`DATA_W-1:0]     par_out,
+		  output [7:0] 	gpo_data_out,
 
 	     //MANDATORY INTERFACE SIGNALS
 	     input 		      clk,
@@ -39,15 +40,14 @@ module xtop (
 
    // MODULE SELECTION SIGNALS
    reg 				  prog_sel;
-   reg [`DATA_W-1:0] 		  prog_data_to_rd;
+   wire [`DATA_W-1:0] 		  prog_data_to_rd;
    
    reg 				  regf_sel;
-   reg [`DATA_W-1:0] 		  regf_data_to_rd;
+   wire [`DATA_W-1:0] 		  regf_data_to_rd;
    
    reg 				  cprt_sel;
  
 	reg 					gpo_sel;
-	reg [`DATA_W-1:0] 	gpo_data_out;	
    
    
    
@@ -79,7 +79,7 @@ module xtop (
 	xgpo gpo(
 			.clk(clk),
 			.rst(rst),
-			.data_in(data_to_wr),
+			.data_in(data_to_wr[7:0]),
 			.data_out(gpo_data_out),
 			.sel(gpo_sel)
 			);

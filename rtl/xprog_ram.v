@@ -1,5 +1,7 @@
 `timescale 1ns / 1ps
 `include "xdefs.vh"
+`include "xprogdefs.vh"
+`include "xctrldefs.vh"
 
 module xprog_ram (
 		 // instruction interface
