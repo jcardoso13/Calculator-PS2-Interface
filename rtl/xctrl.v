@@ -142,17 +142,14 @@ module xctrl (
 	   regA_nxt = {imm[`DATA_W-`IMM_W-1:0],regA[`IMM_W-1:0]};
 	end
 	`ADD: begin
-	   temp_regA = regA + data_to_rd_int;
 	   regA_nxt  = temp_regA[`DATA_W-1:0];
 	   cs_nxt    = temp_regA[`DATA_W];
 	end
 	`SUB: begin
-	   temp_regA = regA - data_to_rd_int;
 	   regA_nxt  = temp_regA[`DATA_W-1:0];
 	   cs_nxt    = temp_regA[`DATA_W];
 	end
 	`ADDI: begin
-	   temp_regA = regA + imm;
 	   regA_nxt  = temp_regA[`DATA_W-1:0];
 	   cs_nxt    = temp_regA[`DATA_W];
 	end
@@ -168,6 +165,16 @@ module xctrl (
    end
 
 
+   // adder / subtractor
+   always @* begin
+      case (opcode)
+	`SUB: temp_regA = regA - data_to_rd_int;
+	`ADDI: temp_regA = regA + imm;
+	default: temp_regA = regA + data_to_rd_int;
+      endcase
+   end
+
+   
    //data bus access
    always @ * begin
 

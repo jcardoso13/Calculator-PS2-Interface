@@ -1,5 +1,7 @@
 `timescale 1ns / 1ps
 `include "xdefs.vh"
+`include "xprogdefs.vh"
+`include "xctrldefs.vh"
 
 module xprog_ram (
 		 // instruction interface
@@ -21,14 +23,13 @@ module xprog_ram (
 		 input [`DATA_W-1:0] 	      dma_data_in,
 		 output [`DATA_W-1:0] 	      dma_data_out
 `endif
-		 input 			      clk,
-		 input 			      rst
+		 input 			      clk
 		 );
 
    //
    // the memory
    //
-   reg [`DATA_W-1:0] 			    mem [2**`PROG_ADDR_W-1:0];
+   reg [`INSTR_W-1:0] 			    mem [2**`PROG_RAM_ADDR_W-1:0];
 
    // instruction port enable
    wire 				    instr_en;
@@ -70,7 +71,7 @@ module xprog_ram (
    // init RAM
    initial begin
       $readmemh("./program.hex",mem,0,2**`PROG_RAM_ADDR_W-1);
-   end
+    end
 
    //instruction port
    always @(posedge clk) begin			

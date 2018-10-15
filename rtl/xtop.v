@@ -27,7 +27,6 @@ module xtop (
    
    // PROGRAM MEMORY/CONTROLLER INTERFACE
    wire [`INSTR_W-1:0] 		  instruction;
-   wire 			  instr_valid;
    wire [`PROG_ADDR_W-1:0] 	  pc;
 
    // DATA BUS
@@ -39,12 +38,15 @@ module xtop (
 
    // MODULE SELECTION SIGNALS
    reg 				  prog_sel;
-   reg [`DATA_W-1:0] 		  prog_data_to_rd;
+   wire [`DATA_W-1:0] 		  prog_data_to_rd;
    
    reg 				  regf_sel;
-   reg [`DATA_W-1:0] 		  regf_data_to_rd;
+   wire [`DATA_W-1:0] 		  regf_data_to_rd;
+
    
+`ifdef DEBUG
    reg 				  cprt_sel;
+`endif
    
    
    //
@@ -64,7 +66,7 @@ module xtop (
 		     .pc(pc),
 		     .instruction(instruction),
 		     
-		     // Internal data bus
+		     // Data bus
 		     .data_sel(data_sel),
 		     .data_we (data_we), 
 		     .data_addr(data_addr),
@@ -75,12 +77,11 @@ module xtop (
    // PROGRAM MEMORY MODULE
    xprog prog (
 	       .clk(clk),
-	       .rst(rst),
 
 	       //data interface 
 	       .data_sel(prog_sel),
 	       .data_we(data_we),
-	       .data_addr(data_addr[`PROG_ADDR_W-1:0]),
+	       .data_addr(data_addr[`PROG_RAM_ADDR_W-1:0]),
 	       .data_in(data_to_wr),
 	       .data_out(prog_data_to_rd),
 
@@ -103,18 +104,27 @@ module xtop (
    always @ * begin
       prog_sel = 1'b0;
       regf_sel = 1'b0;
+`ifdef DEBUG
       cprt_sel = 1'b0;
-
+`endif
+      data_to_rd = `DATA_W'd0;
+      
       if (`REGF_BASE == (data_addr & ({`ADDR_W{1'b1}}<<`REGF_ADDR_W))) begin
-	 regf_sel = 1'b1;
+	 regf_sel = data_sel;
          data_to_rd = regf_data_to_rd;
-      end else if (`CPRT_BASE == data_addr) begin
-	 cprt_sel = 1'b1;
-      end else if (`PROG_BASE == (data_addr & ({`ADDR_W{1'b1}}<<`PROG_ADDR_W))) begin
+      end
+`ifdef DEBUG
+      else if (`CPRT_BASE == data_addr)
+	 cprt_sel = data_sel;
+ `endif
+     else if (`PROG_BASE == (data_addr & ({`ADDR_W{1'b1}}<<`PROG_ADDR_W))) begin
          prog_sel = 1'b1;
          data_to_rd = prog_data_to_rd;
-      end else if(data_sel === 1'b1)
-	 $display("Warning: unmapped controller issued data address %x at time %f", data_addr, $time);
+     end
+`ifdef DEBUG	
+     else if(data_sel === 1'b1)
+       $display("Warning: unmapped controller issued data address %x at time %f", data_addr, $time);
+`endif
    end // always @ *
 
    //
@@ -141,12 +151,12 @@ module xtop (
 	       .int_data_out(regf_data_to_rd)
 	       );
 
+`ifdef DEBUG
    xcprint cprint (
 		   .clk(clk),
 		   .sel(cprt_sel),
 		   .data_in(data_to_wr[7:0])
 		   );
-   
-
+`endif
    
 endmodule

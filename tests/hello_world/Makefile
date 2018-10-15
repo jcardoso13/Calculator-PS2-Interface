@@ -9,16 +9,19 @@ xdict.txt:
 # compile bootrom
 bootrom.hex: bootrom.va xdict.txt
 	../../tools/va -b < bootrom.va
-	cp $@ ../../rtl
+	cp $@ ../../rtl 
+	cp $@ ../../xilinx/14.7/picoversat
 
 # compile 
 program.hex: program.va xdict.txt
 	../../tools/va < program.va
 	cp $@ ../../rtl
+	cp $@ ../../rtl 
+	cp $@ ../../xilinx/14.7/picoversat
 
 clean:
 	make -C ../../rtl clean
-	@rm -f  xdict.txt *# *~ *.hex xrom.v
+	@rm -f  xdict.txt *# *~ *.hex rom.v
 
 
 .phony: all clean

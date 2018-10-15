@@ -6,7 +6,7 @@
 `define REGF_ADDR_W 4 //2**4 = 16 registers
 
 
-//Control register file address map
+// MEMORY MAP
 `define R0 `REGF_BASE
 `define R1 (`R0+1'b1)
 `define R2 (`R1+1'b1)

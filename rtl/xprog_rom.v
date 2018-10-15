@@ -15,14 +15,11 @@ module xprog_rom(
    assign en = 1'b1;
  
    // init rom  
-   initial begin
-      $readmemh("./bootrom.hex",mem,0,2**`PROG_ROM_ADDR_W-1);
-   end
-
+   initial $readmemh("./bootrom.hex",mem,0,2**`PROG_ROM_ADDR_W-1);
+ 
    // rom read operation
-   always @ (posedge clk) begin
+   always @ (posedge clk)
       if (en)
-	instruction <= mem[pc];  
-   end
-   
+	instruction <= mem[pc];
+  
 endmodule

@@ -3,11 +3,11 @@
 //
 
 // Instruction width 
-`define INSTR_W 20
+`define INSTR_W 32
 
 // Instruction fields
 `define OPCODESZ 4
-`define IMM_W (`INSTR_W-`OPCODESZ) //16 = DATA_W
+`define IMM_W (`INSTR_W-`OPCODESZ)
 
 `define DELAY_SLOTS 1
 
