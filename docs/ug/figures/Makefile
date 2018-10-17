@@ -13,7 +13,7 @@ $(error LibreOffice is running. Close it before proceeding.)
 endif
 
 clean:
-	@rm -f *.png *.pdf
+	@rm -f *.pdf
 
 .PHONY: clean all
 

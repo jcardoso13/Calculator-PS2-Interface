@@ -34,11 +34,15 @@ module xctrl (
    wire [`DATA_W-1:0] 			  regB_nxt;
    wire [`ADDR_W-1:0] 			  addr_from_regB;
 
-   //carry register (register C)
+   //flags register (register C)
    wire [`DATA_W-1:0] 			  regC;
-   reg 					  cs;
-   reg 					  cs_nxt;
-
+   reg 					  carry;
+   reg 					  carry_nxt;
+   reg 					  overflow;
+   reg 					  overflow_nxt;
+   reg 					  negative;
+   reg 					  negative_nxt;
+ 				  
    // Program counter 
    reg [`PROG_ADDR_W-1:0] 		  pc_nxt;
    
@@ -46,6 +50,7 @@ module xctrl (
    wire [`OPCODESZ-1 :0] 		  opcode;
    wire [`ADDR_W-1:0] 			  addrint;
    wire signed [`DATA_W-1:0] 		  imm;
+
    
     
    // Instruction field assignment
@@ -61,8 +66,8 @@ module xctrl (
    assign regB_nxt = regB_we ? data_to_wr : regB;
    assign addr_from_regB = regB[`ADDR_W-1:0];
 
-   // carry register assignment
-   assign regC = {{(`DATA_W-1){1'b0}},cs};
+   // flags register assignment
+   assign regC = {negative, overflow,{(`DATA_W-3){1'b0}},carry};
    
    // Internal register address decoder
    always @ * begin
@@ -80,15 +85,16 @@ module xctrl (
    always @ (posedge clk) begin
       if (rst) begin
 	 regA <= `DATA_W'd0;
-	 cs   <= 1'b0;
 	 pc   <= `PROG_ROM;
       end else begin
 	 regA <= regA_nxt;
-	 cs   <= cs_nxt;
 	 pc   <= pc_nxt;
 	 if(regB_we)
 	   regB <= regB_nxt;     
-      end
+	 negative <= negative_nxt;
+ 	 overflow <= overflow_nxt;
+	 carry   <= carry_nxt;
+     end
    end
 
 
@@ -96,9 +102,9 @@ module xctrl (
    always @ * begin
 
       regA_nxt = regA;
-      cs_nxt   = cs;
+      carry_nxt   = carry;
       pc_nxt   = pc + 1'b1;
-      
+   
       case (opcode)
 	`RDW: begin
 	   regA_nxt = data_to_rd_int;
@@ -109,10 +115,10 @@ module xctrl (
 	`SHFT: begin
 	   if ( imm[`DATA_W-1] ) begin
 	      regA_nxt = regA << 1'b1;
-	      cs_nxt   = regA[`DATA_W-1];
+	      carry_nxt   = regA[`DATA_W-1];
 	   end else begin
 	      regA_nxt = regA >> 1'b1;
-	      cs_nxt   = regA[0];
+	      carry_nxt   = regA[0];
 	   end
 	end
 	`BEQI: begin
@@ -143,15 +149,15 @@ module xctrl (
 	end
 	`ADD: begin
 	   regA_nxt  = temp_regA[`DATA_W-1:0];
-	   cs_nxt    = temp_regA[`DATA_W];
+	   carry_nxt    = temp_regA[`DATA_W];
 	end
 	`SUB: begin
 	   regA_nxt  = temp_regA[`DATA_W-1:0];
-	   cs_nxt    = temp_regA[`DATA_W];
+	   carry_nxt    = temp_regA[`DATA_W];
 	end
 	`ADDI: begin
 	   regA_nxt  = temp_regA[`DATA_W-1:0];
-	   cs_nxt    = temp_regA[`DATA_W];
+	   carry_nxt    = temp_regA[`DATA_W];
 	end
 	`AND: begin
 	   regA_nxt = regA & data_to_rd_int;
@@ -164,13 +170,43 @@ module xctrl (
       endcase
    end
 
+   // compute negative flag
+   assign negative_nxt =  temp_regA[`DATA_W-1];
+   
+   // compute overflow flag
+   always @* begin
+      case (opcode)
+	`ADD: begin
+	   overflow_nxt = temp_regA[`DATA_W-1] & ~regA[`DATA_W-1] & ~data_to_rd_int[`DATA_W-1];
+	end
+	`SUB: begin
+	   overflow_nxt = temp_regA[`DATA_W-1] & ~regA[`DATA_W-1] & ~data_to_rd_int[`DATA_W-1];
+	end
+	`ADDI: begin
+	   overflow_nxt = temp_regA[`DATA_W-1] & ~regA[`DATA_W-1] & ~imm[`DATA_W-1];
+	end
+	default:  begin
+	   overflow_nxt = 1'b0;
+	end
+      endcase
+   end // always @ *
 
+   //
    // adder / subtractor
    always @* begin
       case (opcode)
-	`SUB: temp_regA = regA - data_to_rd_int;
-	`ADDI: temp_regA = regA + imm;
-	default: temp_regA = regA + data_to_rd_int;
+	`ADD: begin
+	   temp_regA = regA + data_to_rd_int;
+	end
+	`SUB: begin
+	   temp_regA = regA - data_to_rd_int;
+	end
+	`ADDI: begin
+	   temp_regA = regA + imm;
+	end
+	default:  begin
+	  temp_regA = regA + data_to_rd_int;
+	end
       endcase
    end
 

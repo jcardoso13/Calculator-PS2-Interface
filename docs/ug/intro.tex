@@ -1,19 +1,12 @@
 \section{Introduction}
 
-Versat controller is a low power programmable hardware fabric. The
-Controller is an Intellectual Property (IP) core. It is designed to be
-included in low power embedded systems that require simple algorithmic
-control, offering a programable solution.
+PicoVersat is a minimal hardware controller. It is designed for simple control
+tasks where normally finite state machines are employed. Being a programmable
+solution, the risk of hardware design errors is mitigated and the design of
+complex control structures is simplified.
 
-The Controller is responsible for managing the hole system where it is
-integrated. It is programmable and features a minimal instruction
-set. The Controller is not designed for high performance computation,
-although, it is quite capable of perform algorithmic flow, which may
-involve some simple calculations.
-
-Versat controller has a control interface and an instruction
-interface. The control interface is used to manage several peripherals
-in the system. The instruction interface is used to fetch instructions
-to execute. This instructions compose a program that when executed,
-perform one or more tasks.
+PicoVersat features a minimal instruction set and is not designed for high
+performance computing. However, it can effectively implement simple algorithms
+and perform simple calculations. PicoVersat has a program memory interface and a
+memory mapped data interface, only.
 

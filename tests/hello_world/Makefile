@@ -22,6 +22,7 @@ program.hex: program.va xdict.txt
 clean:
 	make -C ../../rtl clean
 	@rm -f  xdict.txt *# *~ *.hex rom.v
+	@rm $@ ../../xilinx/14.7/picoversat/*.hex
 
 
 .phony: all clean

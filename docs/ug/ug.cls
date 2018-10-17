@@ -1,6 +1,6 @@
 \LoadClass[twoside,a4paper]{article}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{rep}
+\ProvidesClass{ug}
 
 \RequirePackage{graphicx}
 \RequirePackage{helvet}
@@ -21,7 +21,7 @@
 }
 
 \pagestyle{fancy}
-\graphicspath{ {./drawings/} {./wavedrom/} }
+\graphicspath{ {./figures/} {./wavedrom/} }
 \setlength{\parskip}{\baselineskip}
 
 
