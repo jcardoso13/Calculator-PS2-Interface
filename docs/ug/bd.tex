@@ -30,10 +30,32 @@ map so it can be read or written as if accessing the data interface.
 
 \subsection{Flags register}
 
-Register C, the flags register, is used to store three operation flags: the
-negative, overflow and carry flags. Register C itself is in the memory map and
-it is read only. The flags are set by the controller ALU and can be read by
-programs for decision taking.
+Register C, the flags register, is used to store three operation
+flags: the negative, overflow and carry flags. Register C itself is in
+the memory map and it is read only. The flags are set by the
+controller ALU and can be read by programs for decision taking. The
+structure of register C is shown in Table~\ref{tab:flags}.
+
+\begin{table}[!htbp]
+  \centering
+    \begin{tabular}{|c|c|p{7cm}|}
+    \hline 
+    {\bf Bits} & {\bf Name} & {\bf Description} \\
+    \hline \hline 
+     31 & Negative & Asserted if last ALU operation generated a negative result\\
+    \hline
+     30 & Overflow &  Asserted if last ALU operation generated an arithmetic overlow\\
+     29-1 & NA & Reserved for future use\\
+    \hline
+     0 & Carry & Asserted if last ALU operation generated a carry\\
+    \hline
+    \hline
+
+    \end{tabular}
+  \caption{Register C: flags}
+  \label{tab:flags}
+\end{table}
+
 
 \subsection{PC register}
 
