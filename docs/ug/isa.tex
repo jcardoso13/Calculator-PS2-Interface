@@ -1,19 +1,20 @@
-\section{Instruction Set}
+\section{Instructions}
 \label{sec:isa}
 
-Versat controller features a very minimal set of instructions to
-control the execution hole system where it is integrated. 
+\subsection{Instruction Format}
 
-There is only one instruction type illustrated in Table~\ref{tab:if}.
+PicoVersat features a very minimal set of instructions. There is only one
+instruction type as illustrated in Table~\ref{tab:if}.
+
 \begin{table}[!htbp]
   \centering
     \begin{tabular}{|c|p{7cm}|}
     \hline 
     {\bf Bits} & {\bf Description} \\
     \hline \hline 
-     7-4 & Operation code (opcode)\\
+     31-28 & Operation code (opcode)\\
     \hline
-     3-0 & Immediate constant \\
+     27-0 & Immediate constant \\
     \hline
 
     \end{tabular}
@@ -22,10 +23,10 @@ There is only one instruction type illustrated in Table~\ref{tab:if}.
 \end{table}
 
 
-The instruction set is given in Table~\ref{tab:isa}. Brackets are used
-to represent memory pointers. For example, M[Imm] represents the
-contents of the memory position whose address is Imm.
+\subsection{Instruction Set Architecture}
 
+The instruction set is given in Table~\ref{tab:isa}. The notation M[Imm]
+represents the contents of position (address) Imm in the memory map.
 
 \begin{table}[!htbp]
   \centering
@@ -35,37 +36,44 @@ contents of the memory position whose address is Imm.
     \hline \hline 
     %nop & 0x0 & No operation; PC = PC+1\\
     %\hline
-    rdw   & 0x0 & RA = M[Imm]; PC = PC+1\\
+% 
+\multicolumn{3}{|c|}{{\bf Arithmetic / Logic}}\\
+\hline \hline
+    addi  & 0x0 & RA = RA + Imm; PC=PC+1\\
     \hline
-    wrw   & 0x1 & M[Imm] = RA; PC = PC+1\\
+    add   & 0x1 & RA = RA + M[Imm]; PC=PC+1\\
     \hline
-    rdwb  & 0x2 & RA = M[RB+Imm]; PC = PC+1\\
+    sub   & 0x2 & RA = RA - M[Imm]; PC=PC+1\\
     \hline
-    wrwb  & 0x3 & M[RB+Imm] = RA; PC = PC+1\\
+    shft  & 0x3 & RA = (Imm $<$ 0)? RA $<<$ 1: RA $>>$ 1; PC=PC+1\\
     \hline
-    beqi  & 0x4 & RA == 0? PC = Imm: PC += 1; RA = RA-1\\
+    and   & 0x4 & RA = RA \& M[Imm]; PC=PC+1\\
     \hline
-    beq   & 0x5 & RA == 0? PC = M[Imm]: PC += 1; RA = RA-1\\
+    xor   & 0x5 & RA = RA $\oplus$ M[Imm]; PC=PC+1\\
     \hline
-    bneqi & 0x6 & RA != 0? PC = Imm: PC += 1; RA = RA-1\\
+\multicolumn{3}{|c|}{{\bf Load / Store}}\\
+\hline \hline
+    ldi   & 0x6 & RA = Imm; PC=PC+1\\
     \hline
-    bneq  & 0x7 & RA != 0? PC = M[Imm]: PC += 1; RA = RA-1\\
+    ldih  & 0x7 & RA[31:16] = Imm; PC=PC+1\\
     \hline
-    ldi   & 0x8 & RA = Imm; PC=PC+1\\
+    rdw   & 0x8 & RA = M[Imm]; PC = PC+1\\
     \hline
-    ldih  & 0x9 & RA[7:4] = Imm; PC=PC+1\\
+    wrw   & 0x9 & M[Imm] = RA; PC = PC+1\\
     \hline
-    shft  & 0xA & RA = (Imm $<$ 0)? RA $<<$ 1: RA $>>$ 1; PC=PC+1\\
+    rdwb  & 0xA & RA = M[RB+Imm]; PC = PC+1\\
     \hline
-    add   & 0xB & RA = RA + M[Imm]; PC=PC+1\\
+    wrwb  & 0xB & M[RB+Imm] = RA; PC = PC+1\\
     \hline
-    addi  & 0xC & RA = RA + Imm; PC=PC+1\\
+\multicolumn{3}{|c|}{{\bf Branch}}\\
+\hline \hline
+    beqi  & 0xC & RA == 0? PC = Imm: PC += 1; RA = RA-1\\
     \hline
-    sub   & 0xD & RA = RA - M[Imm]; PC=PC+1\\
+    beq   & 0xD & RA == 0? PC = M[Imm]: PC += 1; RA = RA-1\\
     \hline
-    and   & 0xE & RA = RA \& M[Imm]; PC=PC+1\\
+    bneqi & 0xE & RA != 0? PC = Imm: PC += 1; RA = RA-1\\
     \hline
-    xor   & 0xF & RA = RA $\oplus$ M[Imm]; PC=PC+1\\
+    bneq  & 0xF & RA != 0? PC = M[Imm]: PC += 1; RA = RA-1\\
     \hline
     
     \end{tabular}
@@ -73,23 +81,21 @@ contents of the memory position whose address is Imm.
   \label{tab:isa}
 \end{table}
 
-\subsection{Virtual Instructions}
+\subsection{Aliased Instructions}
 
-There is also a {\tt nop} instruction, which do not have its own
-opcode. The assembler will translate this instruction as an {\tt addi
-  0}. From the progammer point of view, it is an instruction available
-as any other.
+There are two instruction aliases:
+\begin{description}
+\item {\tt nop}: same as  {\tt addi 0}. It means No OPeration or do nothing.
+\item {\tt wrc A,B}: same as {\tt wrw (A+B)}, where A and B are numeric and
+  integer constants given with the {\tt wrc} alias.
+\end{description}
 
 \subsection{Delayed Branches}
 
-The PC increments by one after non branch instructions. For branch or
-flow control instructions ({\tt beqi, beq, bneqi, bneq}), the PC is
-assigned the branch target value, PC + Imm or RB, depending on whether
-it is a relative branch ({\tt beqi, bneqi}) or an absolute branch
-({\tt beq, bneq}), respectively. Due to the controller pipeline
-circuits, the new value of the PC is delayed by 1 instruction. Hence,
-the 1 instructions immediately after the branch instruction is
-executed and constitute a delay slot. If one lacks a useful
-instruction for this slot, one should be filled with {\tt nop}
-instruction.
+The instruction following a branch instruction is always executed to the
+instruction pipeline latency (delayed branch or slot). Make sure instructions
+placed after branch instructions are useful and not harmful.
+
+Insert {\tt nop} instructions after a branch if there is no suitable candidate
+for the delay slot·
 

@@ -12,10 +12,12 @@
 `define DELAY_SLOTS 1
 
 // Instruction codes
-`define SHFT    4'h0
+
+// arithmetic and logic
+`define ADDI	4'h0
 `define ADD	4'h1
-`define ADDI	4'h2
-`define SUB	4'h3
+`define SUB	4'h2
+`define SHFT    4'h3
 `define AND	4'h4
 `define XOR	4'h5
 
@@ -27,7 +29,7 @@
 `define RDWB	4'hA
 `define WRWB	4'hB
 
-//branches
+// branch
 `define BEQI	4'hC
 `define BEQ	4'hD
 `define BNEQI	4'hE

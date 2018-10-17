@@ -2,7 +2,7 @@ OBJS = $(patsubst %.odg,%.pdf,$(wildcard ./figures/*.odg))
 WAVES = $(wildcard ./wavedrom/*.png)
 
 TRGT = ug
-SRC = intro.tex bd.tex isa.tex mem_map.tex is.tex progex.tex
+SRC = intro.tex bd.tex isa.tex mem_map.tex is.tex progex.tex periphs.tex
 
 
 $(TRGT).pdf: $(TRGT).tex $(OBJS) $(SRC) $(WAVES) $(TRGT).cls

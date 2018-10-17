@@ -12,7 +12,7 @@
 //`define DEBUG
 
 //
-// VERSAT MEMORY MAP
+// VERSAT MEMORY MAP (2^ADDR_W addresses) //1024
 //
 
 //addresses 0-15 are reserved by the controler

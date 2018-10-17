@@ -31,41 +31,15 @@ map so it can be read or written as if accessing the data interface.
 \subsection{Flags register}
 
 Register C, the flags register, is used to store three operation flags: the
-negative, overflow and carry flags. Register C itself is in the memory
-map so it can be read or written as if accessing the data interface.
+negative, overflow and carry flags. Register C itself is in the memory map and
+it is read only. The flags are set by the controller ALU and can be read by
+programs for decision taking.
 
 \subsection{PC register}
 
-The Porgram Counter (PC) register contains the address of the next instruction to be fetched from the
-Program Memory. The PC normally increments to fetch the next
-instruction. In program jumps, the PC register is loaded with an
-instruction immediate or with the register B value.
+The Program Counter (PC) register contains the address of the next instruction
+to be fetched from the Program Memory. The PC normally increments to fetch the
+next instruction, except for program branch instructions, in which case the PC
+register is loaded with the instruction immediate or with the value in register
+B, depending on the branch instruction type, direct or indirect, respectively.
 
-\subsection{Control Bus}
-\label{sec:rwbus}
-
-
-The Control Bus signals shown in Fig.~\ref{fig:bd} are described
-in Table~\ref{tab:rwbus}.
-
-\begin{table}[!htbp]
-  \centering
-    \begin{tabular}{|p{1.8cm}|c|p{10cm}|}
-    \hline 
-    {\bf Name} & {\bf Direction} & {\bf Description} \\
-    \hline \hline 
-     req & OUT & Read or write request.\\
-    \hline
-     rnw & OUT & Characterizes the request as read if it is 1 or a write if it is 0. \\
-    \hline
-     address & OUT & Address to be read or written \\
-    \hline
-     data2read & IN & Data to be read from the Control Bus \\
-    \hline
-     data2write & OUT & Data to be written to the Control Bus \\
-    \hline
-
-    \end{tabular}
-  \caption{Control Bus signals as driven by the controller.}
-  \label{tab:rwbus}
-\end{table}
