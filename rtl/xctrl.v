@@ -41,7 +41,7 @@ module xctrl (
    reg 					  overflow;
    reg 					  overflow_nxt;
    reg 					  negative;
-   reg 					  negative_nxt;
+   wire 				  negative_nxt;
  				  
    // Program counter 
    reg [`PROG_ADDR_W-1:0] 		  pc_nxt;

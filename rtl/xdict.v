@@ -47,7 +47,7 @@ module xdict;
       $fwrite(fp, "\"bneq\":%d,\n", `BNEQ);
 
       // aliases 
-      $fwrite(fp, "\"nop\":%d,\n", `SHFT);
+      $fwrite(fp, "\"nop\":%d,\n", `ADDI);
       $fwrite(fp, "\"wrc\":%d,\n", `WRW);
 
       
