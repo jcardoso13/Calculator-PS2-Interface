@@ -18,4 +18,5 @@
 //addresses 0-15 are reserved by the controler
 `define REGF_BASE `ADDR_W'h010 //16-31
 `define CPRT_BASE `ADDR_W'h020 //32
+`define PS2_BASE  `ADDR_W'h025 //37-42
 `define PROG_BASE `ADDR_W'h200 //512-1024

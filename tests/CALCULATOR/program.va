@@ -1,0 +1,62 @@
+# 
+# CALCULATOR
+#
+#	Calculator
+#
+	
+
+
+loop 	rdwb
+	rdwb            #need to read twice due to memory 1 cycle delay
+	wrw PS2_BASE
+	rdw RB          #load pointer
+	addi 1	        #increment by 1
+	wrw RB          #store incremented pointer
+	ldi 0x1
+	wrw R2
+	
+loop2 rdw RB          
+	  and R2
+ 	  beqi loop      #go back to loop if non-zero, regA is decremented
+	  nop
+	  nop
+	  
+	  rwd RB
+	  wrw CPRT_BASE
+#finish program by jumping back to boot ROM
+	ldi 0
+	beqi PROG_ROM
+	nop
+	
+# PS2_BASE-> x025
+# DONE -> x026
+
+# char ascii constants placed here	
+c0	.memset 0x0A
+	.memset 0x48
+	.memset 0x65
+	.memset 0x6C
+	.memset 0x6C
+	.memset 0x6F
+	.memset 0x20
+	.memset 0x77
+	.memset 0x6F
+	.memset 0x72
+	.memset 0x6C
+	.memset 0x64
+	.memset 0x21
+	.memset 0x0A
+	.memset 0x0D
+	.memset 0x0A
+
+
+
+
+
+
+
+
+
+
+
+

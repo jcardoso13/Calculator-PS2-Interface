@@ -16,7 +16,9 @@ module xtop (
 
 	     //MANDATORY INTERFACE SIGNALS
 	     input 		      clk,
-	     input 		      rst
+	     input 		      rst,
+	     input			PS2_CLK,
+	     input			PS2_DATA
 	     );
 
    //
@@ -42,6 +44,11 @@ module xtop (
    
    reg 				  regf_sel;
    wire [`DATA_W-1:0] 		  regf_data_to_rd;
+   
+   reg ps2_sel;
+   wire [10:0]			ps2_data_to_rd;
+   reg ps2_done;
+   reg ps2_rst;
 
    
 `ifdef DEBUG
@@ -104,6 +111,7 @@ module xtop (
    always @ * begin
       prog_sel = 1'b0;
       regf_sel = 1'b0;
+      ps2_sel=1'b0;
 `ifdef DEBUG
       cprt_sel = 1'b0;
 `endif
@@ -120,7 +128,17 @@ module xtop (
      else if (`PROG_BASE == (data_addr & ({`ADDR_W{1'b1}}<<`PROG_ADDR_W))) begin
          prog_sel = 1'b1;
          data_to_rd = prog_data_to_rd;
-     end
+       end
+     else if (`PS2_BASE == data_addr) begin
+     ps2_sel= data_sel;
+     data_to_rd[10:0] = ps2_data_to_rd;
+     data_to_rd[31:11] = 21'd0;
+	end
+	else if (`PS2_BASE+1 == data_addr) begin
+	ps2_sel= data_sel;
+    data_to_rd[0]= ps2_done;
+    data_to_rd[31:1]=31'd0;
+    end
 `ifdef DEBUG	
      else if(data_sel === 1'b1)
        $display("Warning: unmapped controller issued data address %x at time %f", data_addr, $time);
@@ -151,6 +169,14 @@ module xtop (
 	       .int_data_out(regf_data_to_rd)
 	       );
 
+	xps2 ps2 (
+			.PS2_CLK(PS2_CLK),
+			.PS2_DATA(PS2_DATA),
+			.clk(clk),
+			.rst(ps2_rst),
+			.data_out(ps2_data_to_rd),
+			.done(ps2_done)
+		);
 `ifdef DEBUG
    xcprint cprint (
 		   .clk(clk),

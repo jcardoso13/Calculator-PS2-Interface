@@ -12,7 +12,8 @@ module xtop_tb;
    //
    reg clk;
    reg rst;
-
+	reg PS2_CLK;
+	reg PS2_DATA;
    //parallel interface
    reg 	[`REGF_ADDR_W-1:0] par_addr;
    reg 			   par_we;
@@ -34,8 +35,9 @@ module xtop_tb;
 	     .par_addr(par_addr),
 	     .par_we(par_we),
 	     .par_in(par_in),
-	     .par_out(par_out)
-    
+	     .par_out(par_out),
+		.PS2_CLK(PS2_CLK),
+		.PS2_DATA(PS2_DATA)
 	      );
    
    initial begin
