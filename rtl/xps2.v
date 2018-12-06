@@ -1,90 +1,61 @@
 `timescale 1ns / 1ps
 
-module xps2 (
-  input clk,
-  input rst,
-  input PS2_DATA,
-  input PS2_CLK,
-  output reg [10:0] data_out	//separated by nibles to express the key pressed
-);
 
+module xps2(
+					input PS2_CLK,
+					input PS2_DATA,
+					input clk,
+					input rst,
+					output reg [10:0] data_out
+//					output reg done
+					);
 
-parameter idle    = 2'b01;
-parameter receive = 2'b10;
-parameter ready   = 2'b11;
+	reg done;
+	reg [10:0] data_in;
+	reg [3:0] counter;
+	
+initial begin
 
-reg [7:0] led_g;
-reg [1:0]  state=idle;
-reg [15:0] rxtimeout=16'b0000000000000000;
-reg [10:0] rxregister=11'b11111111111;
-reg [1:0]  datasr=2'b11;
-reg [1:0]  clksr=2'b11;
-reg [7:0]  rxdata;
+done=1'b0;
+data_in=11'd0;
+counter=3'd0;
 
-
-reg datafetched;
-reg rxactive;
-reg dataready;
-
-
-always @(posedge clk ) 
-begin 
-  if(datafetched==1)
-    led_g <=rxdata;
-	 data_out <=rxdata;
-end  
-  
-always @(posedge clk ) 
-begin 
-  rxtimeout<=rxtimeout+1;
-  datasr <= {datasr[0],PS2_DATA};
-  clksr  <= {clksr[0],PS2_CLK};
-
-
-  if(clksr==2'b10)
-    rxregister<= {datasr[1],rxregister[10:1]};
-
-
-  case (state) 
-    idle: 
-    begin
-      rxregister <=11'b11111111111;
-      rxactive   <=0;
-      dataready  <=0;
-      rxtimeout  <=16'b0000000000000000;
-      if(datasr[1]==0 && clksr[1]==1)
-      begin
-        state<=receive;
-        rxactive<=1;
-      end   
-    end
-    
-    receive:
-    begin
-      if(rxtimeout==50000)
-        state<=idle;
-      else if(rxregister[0]==0)
-      begin
-        dataready<=1;
-        rxdata<=rxregister[8:1];
-        state<=ready;
-        datafetched<=1;
-      end
-    end
-    
-    ready: 
-    begin
-      if(datafetched==1)
-      begin
-        state     <=idle;
-        dataready <=0;
-        rxactive  <=0;
-      end  
-    end  
-  endcase
-end 
+end
 
 
 
+always @(posedge PS2_CLK) begin
 
-endmodule 
+	if (done==0) begin
+	data_in <={PS2_DATA,data_in[10:1]};
+	counter <=  counter+1;
+	end
+	else 
+	counter <= 3'd0;
+	if (rst) begin
+		data_in <=11'd0;
+		counter <=3'd0;
+	end
+end
+
+always @(posedge clk) begin
+
+if (counter==11) begin
+		done <= 1'b1;
+		data_out <= data_in[8:1];
+		end
+	else
+	begin
+	done <= 1'b0;
+	end
+
+if (rst) begin
+data_out<=11'd0;
+done <= 1'd0;
+end
+
+end
+
+
+
+endmodule
