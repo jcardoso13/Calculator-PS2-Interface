@@ -1,28 +1,76 @@
 # 
-# CALCULATOR
-#
+# CALCULATOR-PS2 KEYBOARD- ECOMP PROJECT
+# JOÃO CARDOSO- PEDRO FERREIRA
 #	Calculator
 #
 	
+Waiting 
+	rdw PS2_BASE
+	nop
+	nop
+	wrw DISPLAY_BASE
+	nop
+	nop
+	beqi Waiting
+	nop
+	nop
+	wrw R2 # Write Code to R2, START code recognition!
+	addi -112 # 0 Code
+	beqi Load
+	ldi 0
+	nop
+	rdw R2
+	addi -105 # 1 Code
+	beqi Load
+	ldi 1
+	nop
+	rdw R2
+	addi -114 # 2 Code
+	beqi Load
+	ldi 2
+	nop
+	rdw R2
+	addi -122 # 3 Code
+	beqi Load
+	ldi 3
+	nop
+	addi -107 # 4 Code
+	beqi Load
+	ldi 4
+	nop
+	addi -115 # 5 Code
+	beqi Load
+	ldi 5
+	nop
+	addi -116 # 6 Code
+	beqi Load
+	ldi 6
+	nop
+	addi -108 # 7 Code
+	beqi Load
+	ldi 7
+	nop
+	addi -117 # 8 Code
+	beqi Load
+	ldi 8
+	nop
+	addi -125 # 9 Code
+	beqi Load
+	ldi 9
+	nop
+	bneqi Waiting
+	nop
+	nop # End of Code recognition! Code not valuable!
+Load 
+	wrw R3
+	wrw DISPLAY_BASE
+	ldi 0
+	beqi Waiting 
+	nop
+	nop
 
 
-loop 	rdwb
-	rdwb            #need to read twice due to memory 1 cycle delay
-	wrw PS2_BASE
-	rdw RB          #load pointer
-	addi 1	        #increment by 1
-	wrw RB          #store incremented pointer
-	ldi 0x1
-	wrw R2
-	
-loop2 rdw RB          
-	  and R2
- 	  beqi loop      #go back to loop if non-zero, regA is decremented
-	  nop
-	  nop
-	  
-	  rwd RB
-	  wrw CPRT_BASE
+
 #finish program by jumping back to boot ROM
 	ldi 0
 	beqi PROG_ROM

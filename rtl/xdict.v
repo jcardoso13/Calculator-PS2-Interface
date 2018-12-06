@@ -98,8 +98,9 @@ module xdict;
 
       // Char print module
       $fwrite(fp, "\"CPRT_BASE\":%d,\n", `CPRT_BASE);
-      
-      $fwrite(fp,"\"PS2_BASE\":%d,\n", `PS2_BASE);
+      $fwrite(fp, "\"PS2_BASE\":%d,\n", `PS2_BASE);
+      $fwrite(fp, "\"DISPLAY_BASE\":%d,\n", `DISPLAY_BASE);
+      $fwrite(fp, "\"LEDS_BASE\":%d,\n", `LEDS_BASE);
 
 
       // Finish writing dictionary

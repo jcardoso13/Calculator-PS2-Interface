@@ -1,0 +1,56 @@
+# 
+# CALCULATOR-PS2 KEYBOARD- ECOMP PROJECT
+# JOÃO CARDOSO- PEDRO FERREIRA
+#	Calculator
+#
+	
+Waiting 
+	ldi 0x475
+	nop
+	nop
+	nop
+	wrw DISPLAY_BASE
+	nop
+	bneqi Waiting
+	nop
+	nop
+
+
+
+#finish program by jumping back to boot ROM
+	ldi 0
+	beqi PROG_ROM
+	nop
+	
+# PS2_BASE-> x025
+# DONE -> x026
+
+# char ascii constants placed here	
+c0	.memset 0x0A
+	.memset 0x48
+	.memset 0x65
+	.memset 0x6C
+	.memset 0x6C
+	.memset 0x6F
+	.memset 0x20
+	.memset 0x77
+	.memset 0x6F
+	.memset 0x72
+	.memset 0x6C
+	.memset 0x64
+	.memset 0x21
+	.memset 0x0A
+	.memset 0x0D
+	.memset 0x0A
+
+
+
+
+
+
+
+
+
+
+
+

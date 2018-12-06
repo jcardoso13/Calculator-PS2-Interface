@@ -1,0 +1,16 @@
+#	
+# Basic Boot R0OM
+#
+
+#reset R0
+
+start	ldi 0
+	wrw R0
+
+#wait for R0 to become non-zero and then jumps to user program
+wait0	rdw R0
+	beqi wait0 #regA is decremented
+	addi 1 #regA is incremented to restore
+	bneqi PROG_RAM
+	nop
+	nop

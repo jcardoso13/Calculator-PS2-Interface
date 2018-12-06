@@ -12,12 +12,15 @@ module xtop_tb;
    //
    reg clk;
    reg rst;
-	reg PS2_CLK;
-	reg PS2_DATA;
+
    //parallel interface
    reg 	[`REGF_ADDR_W-1:0] par_addr;
    reg 			   par_we;
    reg [`DATA_W-1:0] 	   par_in;
+   reg PS2_DATA;
+   reg PS2_CLK;
+   reg [7:0]leds;
+   reg [6:0]sevenseg;
    wire [`DATA_W-1:0] 	   par_out;
 
    //iterator and timer
@@ -29,15 +32,16 @@ module xtop_tb;
    // Instantiate the Unit Under Test (UUT)
    xtop uut (
 	      .clk(clk),
-              .rst(rst),
-	      
+         .rst(rst),
    	     // parallel interface
 	     .par_addr(par_addr),
 	     .par_we(par_we),
-	     .par_in(par_in),
-	     .par_out(par_out),
-		.PS2_CLK(PS2_CLK),
-		.PS2_DATA(PS2_DATA)
+        .PS2_DATA(PS2_DATA),
+        .PS2_CLK(PS2_CLK),
+        .leds(leds),
+        .sevenseg(sevenseg),
+        .par_in(par_in),
+        .par_out(par_out)
 	      );
    
    initial begin
