@@ -5,8 +5,8 @@
 module xseven_seg_display(
     input clk, // clock source on Basys 3 FPGA
     input reset, // reset
-    output reg [3:0] Anode_Activate, // anode signals of the 7-segment LED display
-    output reg [6:0] LED_out,// cathode patterns of the 7-segment LED display
+    output reg [3:0] Anode_Activate= 4'b0, // anode signals of the 7-segment LED display
+    output reg [6:0] LED_out=7'h0,// cathode patterns of the 7-segment LED display
     
 	 input dp, //point
      input display_sel,
@@ -14,30 +14,21 @@ module xseven_seg_display(
 
 	 );
 	 
-	 reg [15:0] displayed_number1;
+	 reg [15:0] displayed_number1 = 16'h0;
 	 reg [15:0] cnt = 0;
 
-    reg [3:0] LED_BCD;
-    reg [19:0] refresh_counter; // 20-bit for creating 10.5ms refresh period or 380Hz refresh rate
+    reg [3:0] LED_BCD = 4'h0 ;
+    reg [19:0] refresh_counter= 20'h0; // 20-bit for creating 10.5ms refresh period or 380Hz refresh rate
              // the first 2 MSB bits for creating 4 LED-activating signals with 2.6ms digit period
     wire [1:0] LED_activating_counter; 
                  // count     0    ->  1  ->  2  ->  3
               // activates    LED1    LED2   LED3   LED4
              // and repeat
 				 
-				 
-/*				 
-		always @(posedge clk)
-    begin 
-			if (cnt==16'hFFFF)
-			begin
-				cnt<=0;
-				displayed_number1 <= displayed_number1+1;
-			end
-			else
-				cnt<=cnt+1;
-    end 		 
-			*/
+initial begin
+Anode_Activate <=0;
+LED_out <=0;
+end
 	 
 
     always @(posedge clk)
@@ -49,35 +40,45 @@ module xseven_seg_display(
         else
             refresh_counter <= refresh_counter + 1;
     end 
-    assign LED_activating_counter = refresh_counter[19:18];
     // decoder to generate anode signals 
-    always @(posedge clk)
+    always @(*)
     begin
-        case(LED_activating_counter)
+        case(refresh_counter[19:18])
         2'b00: begin
             Anode_Activate = 4'b0111; 
             // activate LED1 and Deactivate LED2, LED3, LED4
-            LED_BCD = displayed_number1/4096;
+            //LED_BCD = displayed_number1/4096;
+            LED_BCD <=displayed_number1[15:12];
             // the first digit of the 16-bit number
               end
         2'b01: begin
             Anode_Activate = 4'b1011; 
             // activate LED2 and Deactivate LED1, LED3, LED4
-            LED_BCD = (displayed_number1 % 4096)/256;
+            //LED_BCD = (displayed_number1 % 4096)/256;
+            LED_BCD<=   displayed_number1[11:8];
             // the second digit of the 16-bit number
               end
         2'b10: begin
             Anode_Activate = 4'b1101; 
             // activate LED3 and Deactivate LED2, LED1, LED4
-            LED_BCD = ((displayed_number1 % 4096)%256)/16;
+            //LED_BCD = ((displayed_number1 % 4096)%256)/16;
+            LED_BCD<=   displayed_number1[7:4];
             // the third digit of the 16-bit number
                 end
         2'b11: begin
             Anode_Activate = 4'b1110; 
             // activate LED4 and Deactivate LED2, LED3, LED1
-            LED_BCD = ((displayed_number1 % 4096)%256)%16;
+            //LED_BCD = ((displayed_number1 % 4096)%256)%16;
+            LED_BCD <=displayed_number1[3:0];
             // the fourth digit of the 16-bit number    
                end
+        default: begin
+            Anode_Activate = 4'b0111; 
+            // activate LED1 and Deactivate LED2, LED3, LED4
+            //LED_BCD = displayed_number1/4096;
+            LED_BCD <=displayed_number1[15:12];
+            // the first digit of the 16-bit number
+              end
         endcase
     end
     // Cathode patterns of the 7-segment LED display 
