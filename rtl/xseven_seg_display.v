@@ -41,7 +41,7 @@ end
             refresh_counter <= refresh_counter + 1;
     end 
     // decoder to generate anode signals 
-    always @(*)
+    always @(posedge clk)
     begin
         case(refresh_counter[19:18])
         2'b00: begin
@@ -82,7 +82,7 @@ end
         endcase
     end
     // Cathode patterns of the 7-segment LED display 
-    always @(*)
+    always @(posedge clk)
     begin
         case(LED_BCD)
         4'b0000: LED_out = 7'b1000000; // "0"     
