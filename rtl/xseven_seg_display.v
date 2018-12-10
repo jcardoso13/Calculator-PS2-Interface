@@ -15,7 +15,7 @@ module xseven_seg_display(
 	 );
 	 
 	 reg [15:0] displayed_number1 = 16'h0;
-	 reg [15:0] cnt = 0;
+	 reg [22:0] cnt = 0;
 
     reg [3:0] LED_BCD = 4'h0 ;
     reg [19:0] refresh_counter= 20'h0; // 20-bit for creating 10.5ms refresh period or 380Hz refresh rate
@@ -25,18 +25,23 @@ module xseven_seg_display(
               // activates    LED1    LED2   LED3   LED4
              // and repeat
 				 
-initial begin
-Anode_Activate <=0;
-LED_out <=0;
-end
-	 
+
+	 always @(posedge clk)
+    begin 
+			if (cnt==23'h7FFFFF) begin
+					cnt<= 0; 
+					if (display_sel==1'b1)
+					displayed_number1= displayed_number;
+				end
+        else
+            cnt <= cnt + 1;
+    end 
 
     always @(posedge clk)
     begin 
-			if (display_sel==1'b1)
-			displayed_number1 = displayed_number;
-			if (refresh_counter==20'hFFFFF)
+			if (refresh_counter==20'hFFFFF) begin
 					refresh_counter <= 0; 
+				end
         else
             refresh_counter <= refresh_counter + 1;
     end 

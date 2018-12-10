@@ -5,8 +5,7 @@
 #reset R0
 
 start	ldi 0
-	wrw R0
-
+	    wrw R0
 #wait for R0 to become non-zero and then jumps to user program
 wait0	rdw R0
 	beqi wait0 #regA is decremented

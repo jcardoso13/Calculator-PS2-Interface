@@ -6,7 +6,7 @@ module xleds(
 	 output reg [7:0]	leds,
 	 input 	[7:0] led_input,
 	 input 	[7:0]	leds_sel
-);
+	 );
 
 reg [7:0] leds_buffer;
 
@@ -37,8 +37,8 @@ if (leds_sel[0]==1) begin
 leds_buffer[0]<=led_input[0];
 end
 
-
 leds = leds_buffer;
+
 
 end
 

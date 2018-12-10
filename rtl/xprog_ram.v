@@ -69,9 +69,8 @@ module xprog_ram (
    assign data_out = data_out_int;
    
    // init RAM
-   initial begin
-      $readmemh("./program.hex",mem,0,2**`PROG_RAM_ADDR_W-1);
-    end
+   initial $readmemh("./program.hex",mem,0,2**`PROG_RAM_ADDR_W-1);
+   
 
    //instruction port
    always @(posedge clk) begin			

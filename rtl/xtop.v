@@ -15,8 +15,8 @@ module xtop (
 		  output [6:0]		sevenseg,
 		  output				dp,
 		  output	[3:0]		anodes,
-		  output [`DATA_W-1:0] par_out,
-		  input [`DATA_W-1:0] par_in,
+/*		  output [`DATA_W-1:0] par_out,
+		  input [`DATA_W-1:0] par_in,*/
 
 	     //MANDATORY INTERFACE SIGNALS
 	     input 		      clk,
@@ -178,7 +178,7 @@ module xtop (
    // USER MODULES INSERTED BELOW
    //
    //
-   //agora nao � preciso o dp
+   //agora nao preciso o dp
 	assign dp = 1'b1;
 	
 	
@@ -198,16 +198,16 @@ module xtop (
 		.Anode_Activate(anodes),
 		.LED_out(sevenseg),
 		.dp(dp),
-		.displayed_number(displayed_number),
-		.display_sel(display_sel)
+		.displayed_number(data_to_wr[15:0]),
+		.display_sel(1'b1)
 	);
    
 	xleds FPGA_leds(
 		.clk(clk),
 		.reset(rst),
 		.leds(leds),
-		.led_input(led_input),
-		.leds_sel(led_sel)
+		.led_input(ps2_data_to_rd),
+		.leds_sel(8'hFF)
 	);
 
 	
