@@ -1,0 +1,9 @@
+MO xtop NULL ../../../rtl/xtop.v vlg07/xtop.bin 1544455827
+MO xctrl NULL ../../../rtl/xctrl.v vlg49/xctrl.bin 1544455827
+MO xprog_rom NULL ../../../rtl/xprog_rom.v vlg39/xprog__rom.bin 1544455827
+MO xprog NULL ../../../rtl/xprog.v vlg5C/xprog.bin 1544455827
+MO xps2 NULL ../../../rtl/xps2.v vlg79/xps2.bin 1544455827
+MO xseven_seg_display NULL ../../../rtl/xseven_seg_display.v vlg38/xseven__seg__display.bin 1544455827
+MO xregf NULL ../../../rtl/xregf.v vlg68/xregf.bin 1544455827
+MO xleds NULL ../../../rtl/xleds.v vlg78/xleds.bin 1544455827
+MO xprog_ram NULL ../../../rtl/xprog_ram.v vlg73/xprog__ram.bin 1544455827

@@ -26,9 +26,9 @@ reg [1:0]  clksr=2'b11;
 reg [7:0]  rxdata;
 
 
-reg datafetched;
 reg rxactive;
 reg dataready;
+reg datafetched;
 
 always @(posedge clk ) 
 begin 
@@ -47,6 +47,7 @@ begin
       rxregister <=11'b11111111111;
       rxactive   <=0;
       dataready  <=0;
+		datafetched <=0;
       rxtimeout  <=16'b0000000000000000;
       if(datasr[1]==0 && clksr[1]==1)
       begin
@@ -85,30 +86,30 @@ always @(posedge clk) begin
 
 if(datafetched==1) begin
 	 data_out_pre <=rxdata;
-
-if (data_out_pre == 8'h70)
+if (rst)
 data_out <= 8'h0;
+else if (data_out_pre == 8'h70)
+data_out <= 8'h10;
 else if (data_out_pre == 8'h69)
-data_out <= 8'h1;
+data_out <= 8'h11;
 else if (data_out_pre == 8'h72)
-data_out <= 8'h2;
+data_out <= 8'h12;
 else if (data_out_pre == 8'h7A)
-data_out <= 8'h3;
+data_out <= 8'h13;
 else if (data_out_pre == 8'h6B)
-data_out <= 8'h4;
+data_out <= 8'h14;
 else if (data_out_pre == 8'h73)
-data_out <= 8'h5;
+data_out <= 8'h15;
 else if (data_out_pre == 8'h74)
-data_out <= 8'h6;
+data_out <= 8'h16;
 else if (data_out_pre == 8'h6C)
-data_out <= 8'h7;
+data_out <= 8'h17;
 else if (data_out_pre == 8'h75)
-data_out <= 8'h8;
+data_out <= 8'h18;
 else if (data_out_pre == 8'h7D)
-data_out <= 8'h9;
+data_out <= 8'h19;
 else
 data_out <= data_out_pre;
-
 
 end
 /*

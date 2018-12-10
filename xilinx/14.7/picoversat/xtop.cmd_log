@@ -1,0 +1,255 @@
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 
+xst -intstyle ise -ifn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.xst" -ofn "C:/Users/alunos/Desktop/ecomp-project-master/xilinx/14.7/picoversat/xtop.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc xtop.ucf -p xc3s100e-cp132-4 xtop.ngc xtop.ngd  
+map -intstyle ise -p xc3s100e-cp132-4 -cm area -ir off -pr off -c 100 -o xtop_map.ncd xtop.ngd xtop.pcf 
+par -w -intstyle ise -ol high -t 1 xtop_map.ncd xtop.ncd xtop.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml xtop.twx xtop.ncd -o xtop.twr xtop.pcf -ucf xtop.ucf 
+bitgen -intstyle ise -f xtop.ut xtop.ncd 

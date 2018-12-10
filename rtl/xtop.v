@@ -61,7 +61,7 @@ module xtop (
 	reg					display_sel;
    reg ps2_sel;
    wire [10:0]			ps2_data_to_rd;
-   reg ps2_done;
+   wire ps2_done;
    reg ps2_rst;
    reg [7:0] led_input;
 
@@ -120,7 +120,7 @@ module xtop (
 	       .pc(pc),
        	       .instruction(instruction)      
 	       );
-
+			 
 
    // ADDRESS DECODER
    always @ * begin
@@ -128,7 +128,7 @@ module xtop (
       regf_sel = 1'b0;
 		display_sel = 1'b0;
 		led_sel = 8'b0;
-
+		ps2_rst =1'b0;
 `ifdef DEBUG
       cprt_sel = 1'b0;
 `endif
@@ -147,7 +147,7 @@ module xtop (
          data_to_rd = prog_data_to_rd;
 			end
 	  else if (`PS2_BASE == data_addr) begin
-		  ps2_sel= data_sel;
+		  ps2_rst=1'b1;
 		  data_to_rd[10:0] = ps2_data_to_rd;
 		  data_to_rd[31:11] = 21'd0;
 		  end
@@ -188,7 +188,7 @@ module xtop (
 		.clk(clk),
 		.rst(ps2_rst),
 		.data_out(ps2_data_to_rd)
-//		.done(ps2_done)
+		//.datafetched(ps2_done)
 	);
 
 	
@@ -198,8 +198,8 @@ module xtop (
 		.Anode_Activate(anodes),
 		.LED_out(sevenseg),
 		.dp(dp),
-		.displayed_number(data_to_wr[15:0]),
-		.display_sel(1'b1)
+		.displayed_number(displayed_number),
+		.display_sel(display_sel)
 	);
    
 	xleds FPGA_leds(

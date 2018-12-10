@@ -25,7 +25,7 @@ module xseven_seg_display(
               // activates    LED1    LED2   LED3   LED4
              // and repeat
 				 
-
+/*
 	 always @(posedge clk)
     begin 
 			if (cnt==23'h7FFFFF) begin
@@ -35,12 +35,14 @@ module xseven_seg_display(
 				end
         else
             cnt <= cnt + 1;
-    end 
+    end */
 
     always @(posedge clk)
     begin 
 			if (refresh_counter==20'hFFFFF) begin
-					refresh_counter <= 0; 
+					refresh_counter <= 0;
+					if (display_sel==1'b1)
+					displayed_number1= displayed_number;
 				end
         else
             refresh_counter <= refresh_counter + 1;
