@@ -34,14 +34,14 @@ module xtop_tb;
 	      .clk(clk),
          .rst(rst),
    	     // parallel interface
-	     .par_addr(par_addr),
-	     .par_we(par_we),
+	    // .par_addr(par_addr),
+	     //.par_we(par_we),
         .PS2_DATA(PS2_DATA),
         .PS2_CLK(PS2_CLK),
         .leds(leds),
-        .sevenseg(sevenseg),
-        .par_in(par_in),
-        .par_out(par_out)
+        .sevenseg(sevenseg)
+        //.par_in(par_in),
+        //.par_out(par_out)
 	      );
    
    initial begin

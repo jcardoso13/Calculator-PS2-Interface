@@ -3,26 +3,42 @@
 # JOÃO CARDOSO- PEDRO FERREIRA
 #	Calculator
 #	
-Wai	    ldi 0x475
-	    ldi 0x475
+Wai     nop
 	    nop
-	    nop
+        rdw PS2_BASE
+        nop
+        nop
+        nop
+        wrw R4
+        nop
+        nop
+        nop
+#        wrw DISPLAY_BASE
+        nop
+        beqi Wai
+        nop
+        nop
+        rdw R4
+        nop
+        nop
+	    wrw DISPLAY_BASE
+        nop
+        nop
+        ldi 1
 	    bneqi Wai
-
-
         nop
         nop
         ldi 0
-        beqi PROG_RAM
-        nop
-        nop
+        beqi Wai
+
+
 
 
 #finish program by jumping back to boot ROM
 #	ldi 1
 #	beqi PROG_RAM
 #	nop
- #   nop
+#   nop
     
 	
 # PS2_BASE-> x025

@@ -47,5 +47,5 @@
 "CPRT_BASE":  32,
 "PS2_BASE":  37,
 "DISPLAY_BASE":  36,
-"LEDS_BASE":  35,
+"LEDS_BASE": 32,
 }

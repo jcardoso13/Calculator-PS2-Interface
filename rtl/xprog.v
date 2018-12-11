@@ -41,9 +41,9 @@ module xprog (
       
    // INSTRUCTION SOURCE DECODER
    always @ * 
-      //if ( ~pc[`PROG_ADDR_W-1] )
-	//instruction= data_from_rom;
-     // else 
+      if ( ~pc[`PROG_ADDR_W-1] )
+	instruction= data_from_rom;
+      else 
 	instruction = data_from_ram;
    
    //PROG ROM

@@ -9,8 +9,7 @@
 module xtop (
 	     //INSERT EXTERNAL INTERFACES HERE
 	     // parallel interface
-	     input [`REGF_ADDR_W-1:0] par_addr,
-	     input 		      par_we,
+	     input par_we,
 	     output [7:0] 	leds,
 		  output [6:0]		sevenseg,
 		  output				dp,
@@ -33,9 +32,9 @@ module xtop (
    //
    //
 	
-	
-	wire [`DATA_W-1:0]      par_in;
+	wire [`DATA_W-1:0]      par_in=32'hFFFFFFFF;
 	wire [`DATA_W-1:0]     par_out;
+	wire [`REGF_ADDR_W-1:0] par_addr=0;
    
    // PROGRAM MEMORY/CONTROLLER INTERFACE
    wire [`INSTR_W-1:0] 		  instruction;
@@ -60,11 +59,12 @@ module xtop (
 	reg	[7:0]				led_sel;
 	reg					display_sel;
    reg ps2_sel;
-   wire [10:0]			ps2_data_to_rd;
+   wire [31:0]			ps2_data_to_rd;
    wire ps2_done;
    reg ps2_rst;
    reg [7:0] led_input;
 
+	//initial data_we = 1'b1;
    
 `ifdef DEBUG
    reg 				  cprt_sel;
@@ -148,8 +148,7 @@ module xtop (
 			end
 	  else if (`PS2_BASE == data_addr) begin
 		  ps2_rst=1'b1;
-		  data_to_rd[10:0] = ps2_data_to_rd;
-		  data_to_rd[31:11] = 21'd0;
+		  data_to_rd = ps2_data_to_rd;
 		  end
 	  else if (`PS2_BASE+1 == data_addr) begin
 			ps2_sel= data_sel;
@@ -206,7 +205,7 @@ module xtop (
 		.clk(clk),
 		.reset(rst),
 		.leds(leds),
-		.led_input(ps2_data_to_rd),
+		.led_input(ps2_data_to_rd[7:0]),
 		.leds_sel(8'hFF)
 	);
 
