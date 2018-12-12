@@ -35,10 +35,10 @@ Wai     nop
 
 
 #finish program by jumping back to boot ROM
-#	ldi 1
-#	beqi PROG_RAM
-#	nop
-#   nop
+	ldi 0
+	beqi PROG_ROM
+	nop
+    nop
     
 	
 # PS2_BASE-> x025

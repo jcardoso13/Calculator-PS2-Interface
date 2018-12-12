@@ -122,41 +122,11 @@ else if (data_out_pre == 8'h7D) begin
 aux <= 8'h9;
 end
 else if (data_out_pre == 8'h5A) begin
-aux <= 8'h10;
-cnt <= 0;
-enter <=1;
+aux <= 8'h11;
 end
 else begin
 aux <= 8'h10;
 end
-
-if (rst) begin
-data_out <= 8'h0;
-reg1 <= 8'h0;
-reg2 <= 8'h0;
-reg3 <= 8'h0;
-reg4 <= 8'h0;
-enter <= 0;
-end
-if (aux!=8'h10) begin
-case (cnt)
-0: reg1 <= aux;
-1: reg2 <= aux;
-2: reg3 <= aux;
-3: reg4 <= aux;
-endcase
-cnt <= cnt+1;
-end
-
-
-end
-
-if(enter==1) begin
-data_out[30:0]<=reg1+(reg2*10)+(reg3*100)+(reg4*1000);
-data_out[31]<=1'b1;
-enter <=0;
-end
-
 /*
 if (data_out_pre == 8'h54 )
 opcode <= 8'h0; // +
@@ -168,6 +138,48 @@ else if (data_out_pre && 8'h3D == 1)
 opcode <= 8'h3; // /
 else if (data_out_pre && 8'h5A == 1)
 finished <= 8'h1; // ENTER*/
+end
+
+
+always @(posedge clk) begin
+
+
+if (rst) begin
+data_out <= 8'h0;
+reg1 <= 8'h0;
+reg2 <= 8'h0;
+reg3 <= 8'h0;
+reg4 <= 8'h0;
+enter <= 0;
+aux <= 8'h10;
+end
+
+if ((aux!=8'h10) && (aux!=8'h11)) begin
+case (cnt)
+0: reg1 <= aux;
+1: reg2 <= aux;
+2: reg3 <= aux;
+3: reg4 <= aux;
+default: ;
+endcase
+cnt <= cnt+1;
+end
+else if (aux==8'h11) begin
+cnt <= 0;
+enter <=1;
+end
+
+end
+
+
+always @(posedge clk) begin
+
+if(cnt==4 || enter==1) begin
+data_out[30:0]<=reg1+(reg2*10)+(reg3*100)+(reg4*1000);
+data_out[31]<=1'b1;
+enter <=0;
+end
+
 end
 
 endmodule 
