@@ -20,6 +20,7 @@ module xtop (
 	     //MANDATORY INTERFACE SIGNALS
 	     input 		      clk,
 	     input 		      rst,
+	     input 			btn,
 		  
 		  input			PS2_CLK,
 	     input			PS2_DATA
@@ -47,7 +48,7 @@ module xtop (
    reg [`DATA_W-1:0] 		  data_to_rd;
    wire [`DATA_W-1:0] 		  data_to_wr;
 	
-	reg	[15:0]				  displayed_number; //number to be displayed
+	reg	[31:0]				  displayed_number; //number to be displayed
 
    // MODULE SELECTION SIGNALS
    reg 				  prog_sel;
@@ -157,7 +158,7 @@ module xtop (
 			end
 	  else if (`DISPLAY_BASE == data_addr) begin
 			display_sel = 1'b1;
-			displayed_number = data_to_wr[15:0];
+			displayed_number = data_to_wr;
 			end
     else if (`LED_BASE == data_addr) begin
 			led_sel = data_to_wr[15:8];
@@ -197,6 +198,7 @@ module xtop (
 		.Anode_Activate(anodes),
 		.LED_out(sevenseg),
 		.dp(dp),
+		.btn(btn),
 		.displayed_number(displayed_number),
 		.display_sel(display_sel)
 	);

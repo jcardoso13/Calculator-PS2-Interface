@@ -127,6 +127,7 @@ end
 else begin
 aux <= 8'h10;
 end
+end
 /*
 if (data_out_pre == 8'h54 )
 opcode <= 8'h0; // +

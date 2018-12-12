@@ -7,10 +7,10 @@ module xseven_seg_display(
     input reset, // reset
     output reg [3:0] Anode_Activate= 4'b0, // anode signals of the 7-segment LED display
     output reg [6:0] LED_out=7'h0,// cathode patterns of the 7-segment LED display
-    
+	 input btn,
 	 input dp, //point
      input display_sel,
-	 input [15:0] displayed_number // number to be displayed
+	 input [31:0] displayed_number // number to be displayed
 
 	 );
 	 
@@ -41,8 +41,12 @@ module xseven_seg_display(
     begin 
 			if (refresh_counter==20'hFFFFF) begin
 					refresh_counter <= 0;
-					if (display_sel==1'b1)
-					displayed_number1= displayed_number;
+					if (display_sel==1'b1) begin
+						if 	(btn==1)
+							displayed_number1= displayed_number[31:16];
+							else
+							displayed_number1= displayed_number[15:0];
+					end
 				end
         else
             refresh_counter <= refresh_counter + 1;
