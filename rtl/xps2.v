@@ -146,13 +146,11 @@ always @(posedge clk) begin
 
 
 if (rst) begin
-data_out <= 8'h0;
 reg1 <= 8'h0;
 reg2 <= 8'h0;
 reg3 <= 8'h0;
 reg4 <= 8'h0;
 enter <= 0;
-aux <= 8'h10;
 end
 
 if ((aux!=8'h10) && (aux!=8'h11)) begin
@@ -178,7 +176,6 @@ always @(posedge clk) begin
 if(cnt==4 || enter==1) begin
 data_out[30:0]<=reg1+(reg2*10)+(reg3*100)+(reg4*1000);
 data_out[31]<=1'b1;
-enter <=0;
 end
 
 end
