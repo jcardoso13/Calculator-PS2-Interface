@@ -22,6 +22,7 @@ module xtop_tb;
    reg [7:0]leds;
    reg [6:0]sevenseg;
    wire [`DATA_W-1:0] 	   par_out;
+   wire end_program;
 
    //iterator and timer
    integer 		   k, start_time;
@@ -35,13 +36,14 @@ module xtop_tb;
          .rst(rst),
    	     // parallel interface
 	    // .par_addr(par_addr),
-	     //.par_we(par_we),
+	    .par_we(par_we),
         .PS2_DATA(PS2_DATA),
         .PS2_CLK(PS2_CLK),
         .leds(leds),
-        .sevenseg(sevenseg)
+        .sevenseg(sevenseg),
         //.par_in(par_in),
         //.par_out(par_out)
+        .end_program(end_program)
 	      );
    
    initial begin
@@ -80,7 +82,7 @@ module xtop_tb;
       par_addr = 0;
 
       //wait for versat to reset R0
-      while(par_out != 0) #clk_period;
+      while(end_program!= 0) #clk_period;
 
       $display("Execution time in clock cycles: %0d",($time-start_time)/clk_period);
 

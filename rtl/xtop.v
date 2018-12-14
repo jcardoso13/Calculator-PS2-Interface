@@ -14,8 +14,9 @@ module xtop (
 		  output [6:0]		sevenseg,
 		  output				dp,
 		  output	[3:0]		anodes,
-/*		  output [`DATA_W-1:0] par_out,
-		  input [`DATA_W-1:0] par_in,*/
+		  //output [`DATA_W-1:0] par_out,
+		  //input [`DATA_W-1:0] par_in,
+		  output reg end_program,
 
 	     //MANDATORY INTERFACE SIGNALS
 	     input 		      clk,
@@ -70,8 +71,11 @@ module xtop (
 `ifdef DEBUG
    reg 				  cprt_sel;
 `endif
-   
-   
+   always@(*) begin
+    if (par_out!=0)
+		end_program <=1;
+	else end_program <=0;
+	end
    //
    //
    // FIXED SUBMODULES
