@@ -12,6 +12,7 @@ module xprog (
 	      input [`PROG_RAM_ADDR_W-1:0] data_addr,
 	      input [`DATA_W-1:0] 	   data_in,
 	      output [`DATA_W-1:0] 	   data_out,
+			output reg ram_led,
 					
 `ifdef DMA_USE
 	      //dma interface 
@@ -41,11 +42,15 @@ module xprog (
       
    // INSTRUCTION SOURCE DECODER
    always @ * 
-      if ( ~pc[`PROG_ADDR_W-1] )
+      if ( ~pc[`PROG_ADDR_W-1] ) begin
 	instruction= data_from_rom;
-      else 
+	ram_led <=0;
+	end
+      else
+		begin
+		ram_led<=1;
 	instruction = data_from_ram;
-   
+		end
    //PROG ROM
    xprog_rom rom(
 		 .clk(clk),

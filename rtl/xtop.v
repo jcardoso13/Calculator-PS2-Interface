@@ -14,10 +14,9 @@ module xtop (
 		  output [6:0]		sevenseg,
 		  output				dp,
 		  output	[3:0]		anodes,
-		  //output [`DATA_W-1:0] par_out,
-		  //input [`DATA_W-1:0] par_in,
-		  output reg end_program,
-
+/*		  output [`DATA_W-1:0] par_out,
+		  input [`DATA_W-1:0] par_in,*/
+		output reg				finish,
 	     //MANDATORY INTERFACE SIGNALS
 	     input 		      clk,
 	     input 		      rst,
@@ -34,9 +33,15 @@ module xtop (
    //
    //
 	
+	//DEBUG INIT
+	wire [7:0] cnt2;
+	
+	//DEBUG END
+	
 	wire [`DATA_W-1:0]      par_in=32'hFFFFFFFF;
 	wire [`DATA_W-1:0]     par_out;
 	wire [`REGF_ADDR_W-1:0] par_addr=0;
+	
    
    // PROGRAM MEMORY/CONTROLLER INTERFACE
    wire [`INSTR_W-1:0] 		  instruction;
@@ -45,6 +50,7 @@ module xtop (
    // DATA BUS
    wire 			  data_sel;
    wire 			  data_we;
+	wire 				ram_led;
    wire [`ADDR_W-1:0] 		  data_addr;
    reg [`DATA_W-1:0] 		  data_to_rd;
    wire [`DATA_W-1:0] 		  data_to_wr;
@@ -71,11 +77,12 @@ module xtop (
 `ifdef DEBUG
    reg 				  cprt_sel;
 `endif
+   
    always@(*) begin
-    if (par_out!=0)
-		end_program <=1;
-	else end_program <=0;
+   if (par_out!=1'b0)
+		finish<=1'b1;
 	end
+   
    //
    //
    // FIXED SUBMODULES
@@ -111,6 +118,7 @@ module xtop (
 	       .data_addr(data_addr[`PROG_RAM_ADDR_W-1:0]),
 	       .data_in(data_to_wr),
 	       .data_out(prog_data_to_rd),
+			 .ram_led(ram_led),
 
 	       //DMA interface 
 `ifdef DMA_USE
@@ -152,8 +160,11 @@ module xtop (
          data_to_rd = prog_data_to_rd;
 			end
 	  else if (`PS2_BASE == data_addr) begin
-		  ps2_rst=1'b1;
-		  data_to_rd = ps2_data_to_rd;
+		  if (ps2_done ==1'b1) begin
+				ps2_rst=1'b1;
+				data_to_rd = ps2_data_to_rd;
+				end
+		else data_to_rd = 32'h0;
 		  end
 	  else if (`PS2_BASE+1 == data_addr) begin
 			ps2_sel= data_sel;
@@ -190,9 +201,10 @@ module xtop (
 		.PS2_CLK(PS2_CLK),
 		.PS2_DATA(PS2_DATA),
 		.clk(clk),
-		.rst(ps2_rst),
-		.data_out(ps2_data_to_rd)
+		.rst(rst),
+		.data_out(ps2_data_to_rd),
 		//.datafetched(ps2_done)
+		.cnt2(cnt2)
 	);
 
 	
@@ -211,7 +223,8 @@ module xtop (
 		.clk(clk),
 		.reset(rst),
 		.leds(leds),
-		.led_input(ps2_data_to_rd[7:0]),
+		.led_input(8'h0),
+		.ram_led(ram_led),
 		.leds_sel(8'hFF)
 	);
 
