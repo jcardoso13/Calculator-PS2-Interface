@@ -40,7 +40,7 @@ module xtop_tb;
         .PS2_DATA(PS2_DATA),
         .PS2_CLK(PS2_CLK),
         .leds(leds),
-        .finish(finish),
+//        .finish(finish),
         .sevenseg(sevenseg)
         //.par_in(par_in),
         //.par_out(par_out)
