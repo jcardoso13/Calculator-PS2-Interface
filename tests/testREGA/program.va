@@ -6,23 +6,13 @@
 Wai     nop
 	    nop
         rdw PS2_BASE
-        nop
-        nop
-        nop
+#PS2 BASE 3
         wrw R4
-        nop
-        nop
-        nop
-#        wrw DISPLAY_BASE
-        nop
         beqi Wai
         nop
         nop
         rdw R4
-        nop
-        nop
 	    wrw DISPLAY_BASE
-        nop
         nop
         ldi 1
 	    bneqi Wai
@@ -30,6 +20,46 @@ Wai     nop
         nop
         ldi 0
         beqi Wai
+        nop
+        nop
+Wait     nop
+	    nop
+        rdw 0x31 
+#PS2 BASE 2
+        wrw R4
+        beqi Wait
+        nop
+        nop
+        rdw R4
+	    wrw DISPLAY_BASE
+        nop
+        ldi 1
+	    bneqi Wait
+        nop
+        nop
+        ldi 0
+        beqi Wait
+        nop
+        nop
+Waitt   nop
+	    nop
+        rdw 0x32
+#PS2 BASE 3
+        wrw R4
+        beqi Wai
+        nop
+        nop
+        rdw R4
+	    wrw DISPLAY_BASE
+        nop
+        ldi 1
+	    bneqi Waitt
+        nop
+        nop
+        ldi 0
+        beqi Waitt
+        nop
+        nop
 
 
 

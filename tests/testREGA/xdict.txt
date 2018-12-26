@@ -42,10 +42,11 @@
 "PROG_ROM":  0,
 "PROG_ROM_ADDR_W":          4,
 "PROG_RAM":256,
-"PROG_RAM_ADDR_W":          8,
+"PROG_RAM_ADDR_W":          9,
 "PROG_BASE": 512,
 "CPRT_BASE":  32,
 "PS2_BASE":  37,
 "DISPLAY_BASE":  36,
-"LEDS_BASE": 32,
+"LED_BASE":  35,
+"SW_BASE": 32,
 }

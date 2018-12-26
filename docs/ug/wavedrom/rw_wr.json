@@ -1,9 +1,0 @@
-{signal: [
-  {name: 'clk', wave: 'p........'},
-  {name: 'data_sel', wave: '01.01010.'},
-  {name: 'data_we', wave: '01.01010.'},
-  {name: 'data_addr', wave: 'x34x5x2x.', data: ['0', '4', '11', '14']},
-  {name: 'data_to_rd', wave: 'x........', data: ['D0', 'D1', 'D2', 'D3']},
-  {name: 'data_to_wr', wave: 'x34x5x2x.', data: ['R0', 'R4', 'R11', 'R14']}
-	]
-}

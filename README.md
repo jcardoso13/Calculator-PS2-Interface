@@ -1,10 +1,11 @@
 # README #
 
-### What is this repository for? ###
+PicoVersat was used for a Computer Eletronics Project.
 
-* picoVersat is a 16-instruction picocontroller used to replace error prone FSMs 
-* Version 0.0
+The Project is a Calculator using PS/2 Interface. It was Implemented on a Basys2 Board.
 
+Documentation can be found on docs folder.
+The Program that was used to test the calculator is in the folder ./tests/CALCULATOR/
 
 ### How do I get set up? ###
 
@@ -23,14 +24,6 @@
 cd tests
 make {install|testname}
 ```
-
-### Contribution guidelines ###
-
-* Writing tests
-
-[to be added]
-
-
 ### Who do I talk to? ###
 
 * Repo owner or admin

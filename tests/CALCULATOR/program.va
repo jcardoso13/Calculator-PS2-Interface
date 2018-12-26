@@ -1,67 +1,536 @@
 # 
 # CALCULATOR-PS2 KEYBOARD- ECOMP PROJECT
 # JOÃO CARDOSO- PEDRO FERREIRA
-#	Calculator
-#
+#   Calculator
+#   
+Wai     ldi 0x00000000
+        ldi 0x00000000
+#set all values to inicial values
+        wrw R13
+        wrw R1
+        wrw R2
+        wrw R3
+        nop
+Start   ldi 0x00000001
+        ldi 0x00000001
+        wrw R4      
+        ldi 0x000000F0
+        nop
+        wrw R6
+        nop
+        nop
+#read operand 1 and wait until recive data
+#the message from PS2 comes incresed by one to differ the zero between no data
+OP1     ldi 0
+        ldi 0
+        rdw PS2_BASE
+        nop
+        nop
+        beqi OP1
+        nop
+        nop
+        wrw R1
+        nop
+        wrw DISPLAY_BASE
+        nop
+        nop
+#read opcode and wiat until recive data
+#it comes with a F before the values 
+OP      ldi 0
+        rdw 0x31
+        nop
+        beqi OP
+        nop
+        nop
+        wrw R3
+        nop
+        nop
+        rdw R3
+        nop
+        sub R6
+        nop
+        wrw R3
+        nop
+        nop
+        wrw DISPLAY_BASE
+        nop
+#read operand 2 and wait until recive data
+OP2     ldi 0
+        ldi 0
+        rdw 0x32
+        nop
+        beqi OP2
+        nop
+        nop
+        wrw R2
+        nop
+        nop
+        wrw DISPLAY_BASE
+        nop
+        nop
+        nop
+#load opcode and choose the correct operation
+        rdw R3
+        nop
+        nop
+        beqi Soma
+        nop
+        nop
+        beqi Subt
+        nop
+        nop
+        beqi And
+        nop
+        nop
+        beqi Xor
+        nop
+        nop
+        beqi Not
+        nop
+        nop
+        beqi Or
+        nop
+        nop
+        beqi Nor
+        nop
+        nop
+        beqi Nand
+        nop
+        nop
+        beqi Xnor
+        nop
+        nop
+        beqi Init_D
+        nop
+        nop
+        beqi Radx
+        nop
+        nop       
+        ldi 0
+        beqi Wai
+        nop
+        nop
 
-Waiting	    ldi 0
-            ldi 0
-		    wrw R1
-		    wrw R2
-		    wrw R3
-		    wrw R4
-		    wrw R5
-		    wrw R6
-		    wrw R7
-		    wrw R8
-		    wrw R9
-		    wrw R10
-		    wrw R11
-		    wrw R12
-		    wrw R13
-		    wrw R14
-		    wrw R15
-		    rdw PS2_BASE
-		    nop
-		    nop
-		    wrw DISPLAY_BASE
-		    nop
-		    nop
-		    beqi Waiting
-		    nop
-		    nop
-Load 	    wrw R3
-            wrw R3
-		    wrw DISPLAY_BASE
-		    ldi R4
-		    addi 1
-        
+#add the two operands
+#save the result on R13
+#jump back to the begining
+Soma    rdw R1
+        rdw R1
+        nop
+        add R2
+        nop
+        wrw R13
+        nop
+        wrw DISPLAY_BASE
+        ldi 0
+        beqi Start
+        nop
+        nop
 
-#finish program by jumping back to boot ROM
-	ldi 0
-	beqi PROG_ROM
-	nop
-	
-# PS2_BASE-> x025
-# DONE -> x026
+#subtract the two operands
+#save the result on R13
+#jump back to the begining
+Subt    rdw R1
+        rdw R1
+        nop
+        sub R2
+        nop
+        wrw R13
+        nop
+        wrw DISPLAY_BASE
+        ldi 0
+        beqi Start
+        nop
+        nop
 
-# char ascii constants placed here	
-c0	.memset 0x0A
-	.memset 0x48
-	.memset 0x65
-	.memset 0x6C
-	.memset 0x6C
-	.memset 0x6F
-	.memset 0x20
-	.memset 0x77
-	.memset 0x6F
-	.memset 0x72
-	.memset 0x6C
-	.memset 0x64
-	.memset 0x21
-	.memset 0x0A
-	.memset 0x0D
-	.memset 0x0A
+#do the logic operation and with two operands
+#save the result on R13
+#jump back to the begining
+And     rdw R1
+        rdw R1
+        nop
+        and R2
+        nop
+        wrw R13
+        nop
+        wrw DISPLAY_BASE
+        nop
+        ldi 0
+        beqi Start
+        nop
+        nop
+
+#do the logic operation xor with two operands
+#save the result on R13
+#jump back to the begining
+Xor     rdw R1
+        rdw R1
+        nop
+        xor R2
+        nop
+        nop
+        wrw R13
+        nop
+        nop
+        wrw DISPLAY_BASE
+        ldi 0
+        beqi Start
+        nop
+        nop
+
+#do the logic operation not to the 1st operand
+#save the result on R13
+#jump back to the begining
+Not     ldi 0xFFFFFFFF
+        ldi 0xFFFFFFFF
+        xor R1
+        wrw R13
+        wrw DISPLAY_BASE
+        ldi 0
+        beqi Start
+        nop
+        nop
+
+#do the logic operation or with two operands
+#save the result on R13
+#jump back to the begining
+Or      ldi 0xFFFFFFFF
+        ldi 0xFFFFFFFF
+        xor R1
+        wrw R1
+        ldi 0xFFFFFFFF
+        xor R2
+        and R1
+        wrw R1
+        ldi 0xFFFFFFFF
+        xor R1
+        wrw R13
+        wrw DISPLAY_BASE
+        ldi 0
+        beqi Start
+        nop
+        nop
+
+#do the logic operation nor with two operands
+#save the result on R13
+#jump back to the begining
+Nor     ldi 0xFFFFFFFF
+        ldi 0xFFFFFFFF
+        xor R1
+        wrw R1
+        ldi 0xFFFFFFFF
+        xor R2
+        and R1
+        wrw R13
+        wrw DISPLAY_BASE
+        ldi 0
+        beqi Start
+        nop
+        nop
+
+#do the logic operation nand with two operands
+#save the result on R13
+#jump back to the begining
+Nand    rdw R1
+        rdw R1
+        and R2
+        wrw R1
+        ldi 0xFFFFFFFF
+        xor R1
+        wrw R13
+        wrw DISPLAY_BASE
+        ldi 0
+        beqi Start
+        nop
+        nop
+
+#do the logic operation xnor with two operands
+#save the result on R13
+#jump back to the begining
+Xnor    rdw R1
+        rdw R1
+        xor R2
+        wrw R1
+        ldi 0xFFFFFFFF
+        xor R1
+        wrw R13
+        wrw DISPLAY_BASE
+        ldi 0
+        beqi Start
+        nop
+        nop  
+
+#divide two operands
+#save the result on R13
+#jump back to the begining
+
+#R1 - 1st operand and where the result will be stores while the result is not ready
+#R2 - 2nd operand
+#R3 - aux register to store values that may or not be used later
+#R6 - size of the operands (always 16)
+#R8 - 0x100000...00 (aux value)
+#R9 - last bit that will choose the next step (Pos or Neg)
+
+#init all values
+Init_D  ldi 0x0000000F
+        ldi 0x0000000F
+        wrw R6
+        nop
+        ldi 0xF8000000
+        nop
+        wrw R8
+        shft -1
+        shft -1
+        shft -1
+        shft -1
+        wrw R8
+        ldi 0x00000001
+        wrw R7
+#shift R2 to the right place
+Shift_d rdw R6
+        rdw R6
+        beqi Div_i
+        wrw R6
+        rdw R2
+        shft -1
+        wrw R2
+        ldi 0
+        beqi Shift_d
+        nop
+        nop
+Div_i   rdw R6
+        ldi 0x0000000F
+        wrw R6
+Div     rdw R6
+        rdw R6
+        beqi Done_D
+        nop
+        nop
+        wrw R6
+        rdw R1
+        wrw R1
+        sub R2
+        wrw R3
+        and R8
+#check if R1 is bigger than R2 and store it in R9
+        wrw R9
+        rdw R9
+        beqi Pos
+        nop
+        nop
+#R1 is not bigger than R2
+#just shift
+        ldi 0xFFFFFFFF
+        wrw R9
+        rdw R1
+        shft -1
+        wrw R1
+        ldi 0
+        beqi Div
+        nop
+        nop
+#R1 is bigger than R2 so subtract R2 and then shift
+Pos     rdw R3
+        ldi 0xFFFFFFFF
+        wrw R9
+        rdw R3
+        shft -1
+        wrw R1
+        add R7
+        wrw R1
+        ldi 0
+        beqi Div
+        nop
+        nop
+#print the value and jump to the begining
+Done_D  rdw R1
+        rdw R1
+        nop
+        shft -1
+        nop
+        wrw R13
+        nop
+        nop
+        wrw DISPLAY_BASE
+        ldi 0
+        beqi Start
+        nop
+        nop
+
+
+#multiply two operands
+#save the result on R13
+#jump back to the begining
+
+#R1 - 1st operand and where the result will be stores while the result is not ready
+#R2 - 2nd operand
+#R3 - -R2
+#R4 - aux value 0000....011
+#R6 - size of the operands (always 16)
+#R7 - value of 1 to do subtractions
+#R8 - 0x100000...00 (aux value)
+#R9 - last bit that will choose the next step (Pos or Neg)
+#R11 - 
+
+
+
+Radx    ldi 0x00000010
+        ldi 0x00000010
+        wrw R6
+        ldi 0x00000000
+        wrw R11
+        ldi 0x00000001
+        wrw R7
+        ldi 0xFFFFFFFF
+        xor R2
+        add R7
+        wrw R3
+Shift   rdw R6
+        rdw R6
+        beqi Init
+        nop
+        nop
+        wrw R6
+        rdw R2
+        shft -1
+        wrw R2
+        rdw R3
+        shft -1
+        wrw R3
+        ldi 0
+        beqi Shift
+        nop
+        nop
+#do the first step that
+Init    ldi 0x00000003
+        ldi 0x00000003
+        wrw R4
+        ldi 0x0000000F
+        wrw R6
+        rdw R1
+        and R7
+        beqi M00
+        nop
+        nop
+        rdw R1
+        and R7
+        bneqi M10
+        nop
+        nop
+
+Mult    rdw R6
+        ldi 0xF4000000
+        shft -1
+        shft -1
+        shft -1
+        shft -1
+        wrw R9
+        and R1
+        nop
+        beqi jump
+        nop
+        nop
+        ldi 0xF8000000
+        shft -1
+        shft -1
+        shft -1
+        shft -1
+        wrw R10
+        add R1
+        wrw R1
+
+#choose next step
+jump    rdw R6
+        rdw R6
+        beqi Done
+        nop
+        nop
+        wrw R6
+        rdw R5
+        beqi M00
+        nop
+        nop
+        ldi 0x0000001
+        wrw R8
+        rdw R5
+        sub R8
+        beqi M01
+        nop
+        nop
+        ldi 0x00000002
+        nop
+        wrw R8
+        rdw R5
+        sub R8
+        beqi M10
+        nop
+        nop
+        ldi 0x00000003
+        wrw R8
+        rdw R5
+        sub R8
+        beqi M00
+        nop
+        nop
+
+#print the value and jump to the begining
+Done    rdw R1
+        rdw R1
+        nop
+        nop
+        wrw R13
+        nop
+        nop
+        wrw DISPLAY_BASE
+        ldi 0
+        beqi Start
+        nop
+        nop
+#last two bits are 11 or 00
+M00     rdw R1
+        ldi 0x00000000
+        wrw R5
+        rdw R1
+        and R4
+        wrw R5
+        rdw R1
+        shft 1
+        wrw R1
+        ldi 0
+        beqi Mult
+        nop
+        nop
+#last bits are 10
+M10     rdw R1
+        ldi 0x00000000
+        wrw R5
+        rdw R1
+        and R4
+        wrw R5
+        rdw R1
+        add R3
+        shft 1
+        wrw R1
+        ldi 0
+        beqi Mult
+        nop
+        nop
+#last bits are 01
+M01     rdw R1
+        ldi 0x00000000
+        wrw R5
+        rdw R1
+        and R4
+        wrw R5
+        rdw R1
+        add R2
+        shft 1
+        wrw R1
+        ldi 0
+        beqi Mult
+        nop
+        nop
+
 
 
 

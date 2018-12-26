@@ -1,7 +1,0 @@
-{signal: [
-  {name: 'clk', wave: 'p........'},
-  {name: 'rst', wave: '010......'},
-  {name: 'pc', wave: 'x.3452345', data: ['0', '1', '2', '3', '4', '5', '6']},
-  {name: 'instruction', wave: 'x..345234', data: ['I0', 'I1', 'I2', 'I3', 'I4', 'I5']}
-	]
-}
