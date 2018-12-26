@@ -21,8 +21,8 @@ NET "leds<7>" LOC = "G1" ;
 
 
 # Pin assignment for SWs
-#NET "sw<7>" LOC = "N3";  # Bank = 2, Signal name = SW7
-#NET "sw<6>" LOC = "E2";  # Bank = 3, Signal name = SW6
+NET "sw_in<1>" LOC = "N3";  # Bank = 2, Signal name = SW7
+NET "sw_in<0>" LOC = "E2";  # Bank = 3, Signal name = SW6
 #NET "sw<5>" LOC = "F3";  # Bank = 3, Signal name = SW5
 #NET "sw<4>" LOC = "G3";  # Bank = 3, Signal name = SW4
 #NET "sw<3>" LOC = "B4";  # Bank = 3, Signal name = SW3

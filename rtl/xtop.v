@@ -10,13 +10,14 @@ module xtop (
 	     //INSERT EXTERNAL INTERFACES HERE
 	     // parallel interface
 	     input par_we,
+	     input [1:0] sw_in,
 	     output [7:0] 	leds,
 		  output [6:0]		sevenseg,
 		  output				dp,
 		  output	[3:0]		anodes,
 /*		  output [`DATA_W-1:0] par_out,
 		  input [`DATA_W-1:0] par_in,*/
-		output reg				finish,
+		//output reg				finish,
 	     //MANDATORY INTERFACE SIGNALS
 	     input 		      clk,
 	     input 		      rst,
@@ -34,8 +35,6 @@ module xtop (
    //
 	
 	//DEBUG INIT
-	wire [7:0] cnt2;
-	
 	//DEBUG END
 	
 	wire [`DATA_W-1:0]      par_in=32'hFFFFFFFF;
@@ -55,6 +54,9 @@ module xtop (
    reg [`DATA_W-1:0] 		  data_to_rd;
    wire [`DATA_W-1:0] 		  data_to_wr;
 	
+		wire [7:0] xxleds;
+
+	
 	reg	[31:0]				  displayed_number; //number to be displayed
 
    // MODULE SELECTION SIGNALS
@@ -63,26 +65,36 @@ module xtop (
    
    reg 				  regf_sel;
    wire [`DATA_W-1:0] 		  regf_data_to_rd;
+	reg [31:0]				ps2_buff=0;
 	
 	reg	[7:0]				led_sel;
 	reg					display_sel;
-   reg ps2_sel;
-   wire [31:0]			ps2_data_to_rd;
+   wire [31:0]			ps2_data_to_rd1;
+	wire [31:0]			ps2_data_to_rd2;
+	wire [31:0]			ps2_data_to_rd3;
    wire ps2_done;
    reg ps2_rst;
    reg [7:0] led_input;
+	reg[2:0] cnt_key=0;
+	reg[31:0] reg1=0;
+	reg[31:0] reg2=0;
+	reg[31:0] reg3=0;
+	reg[31:0] reg5=0;
+	reg[31:0] reg6=0;
+	reg data=1;
+		
 
-	//initial data_we = 1'b1;
+	//initial buffer = 1'b0;
    
 `ifdef DEBUG
    reg 				  cprt_sel;
 `endif
    
-   always@(*) begin
+  /* always@(*) begin
    if (par_out!=1'b0)
 		finish<=1'b1;
 	end
-   
+   */
    //
    //
    // FIXED SUBMODULES
@@ -133,15 +145,21 @@ module xtop (
 	       .pc(pc),
        	       .instruction(instruction)      
 	       );
-			 
 
+
+
+		
    // ADDRESS DECODER
-   always @ * begin
+   always @ (*) begin
+	
+		
       prog_sel = 1'b0;
       regf_sel = 1'b0;
 		display_sel = 1'b0;
 		led_sel = 8'b0;
-		ps2_rst =1'b0;
+		displayed_number=0;
+		reg5=reg6;
+		
 `ifdef DEBUG
       cprt_sel = 1'b0;
 `endif
@@ -160,31 +178,35 @@ module xtop (
          data_to_rd = prog_data_to_rd;
 			end
 	  else if (`PS2_BASE == data_addr) begin
-		  if (ps2_done ==1'b1) begin
-				ps2_rst=1'b1;
-				data_to_rd = ps2_data_to_rd;
-				end
-		else data_to_rd = 32'h0;
-		  end
-	  else if (`PS2_BASE+1 == data_addr) begin
-			ps2_sel= data_sel;
-			data_to_rd[0]= ps2_done;
-			data_to_rd[31:1]=31'd0;
-			end
+				data_to_rd=ps2_data_to_rd1;
+	end
+	else if(10'h31 == data_addr) begin
+				data_to_rd=ps2_data_to_rd2;
+	end
+	else if(10'h32 == data_addr) begin
+				data_to_rd=ps2_data_to_rd3;						  
+	end
 	  else if (`DISPLAY_BASE == data_addr) begin
 			display_sel = 1'b1;
+			
 			displayed_number = data_to_wr;
 			end
     else if (`LED_BASE == data_addr) begin
 			led_sel = data_to_wr[15:8];
 			led_input = data_to_wr[7:0];
 			end			
-						
+	else if (`SW_BASE == data_addr) begin
+			data_to_rd[31:2]=30'h0;
+			data_to_rd[1:0]=sw_in;
+			
+		end			
 		
 `ifdef DEBUG	
      else if(data_sel === 1'b1)
        $display("Warning: unmapped controller issued data address %x at time %f", data_addr, $time);
 `endif
+
+
    end 
 	// always @ *
 
@@ -197,14 +219,17 @@ module xtop (
 	assign dp = 1'b1;
 	
 	
+	
 	xps2 ps2 (
 		.PS2_CLK(PS2_CLK),
 		.PS2_DATA(PS2_DATA),
 		.clk(clk),
+		.data_rst(ps2_rst),
 		.rst(rst),
-		.data_out(ps2_data_to_rd),
-		//.datafetched(ps2_done)
-		.cnt2(cnt2)
+		.data_out(ps2_data_to_rd1),
+		.data_out2(ps2_data_to_rd2),
+		.data_out3(ps2_data_to_rd3),
+		.ps2_done(ps2_done)
 	);
 
 	
@@ -223,7 +248,7 @@ module xtop (
 		.clk(clk),
 		.reset(rst),
 		.leds(leds),
-		.led_input(8'h0),
+		.led_input(led_input),
 		.ram_led(ram_led),
 		.leds_sel(8'hFF)
 	);

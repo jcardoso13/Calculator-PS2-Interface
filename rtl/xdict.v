@@ -100,8 +100,8 @@ module xdict;
       $fwrite(fp, "\"CPRT_BASE\":%d,\n", `CPRT_BASE);
       $fwrite(fp, "\"PS2_BASE\":%d,\n", `PS2_BASE);
       $fwrite(fp, "\"DISPLAY_BASE\":%d,\n", `DISPLAY_BASE);
-      $fwrite(fp, "\"LEDS_BASE\":%d,\n", `LEDS_BASE);
-
+      $fwrite(fp, "\"LED_BASE\":%d,\n", `LED_BASE);
+      $fwrite(fp, "\"SW_BASE\":%d,\n", `SW_BASE);
 
       // Finish writing dictionary
       $fwrite(fp,"}\n");

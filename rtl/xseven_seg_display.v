@@ -39,14 +39,24 @@ module xseven_seg_display(
 
     always @(posedge clk)
     begin 
-			if (refresh_counter==20'hFFFFF) begin
-					refresh_counter <= 0;
-					if (display_sel==1'b1) begin
+	 
+	 if (display_sel==1'b1) begin
 						if 	(btn==1)
 							displayed_number1= displayed_number[31:16];
 							else
 							displayed_number1= displayed_number[15:0];
 					end
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+			if (refresh_counter==20'hFFFFF) begin
+					refresh_counter <= 0;
 				end
         else
             refresh_counter <= refresh_counter + 1;
